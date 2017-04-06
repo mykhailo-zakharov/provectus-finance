@@ -60,11 +60,10 @@ class NewEmployee extends Component {
     render() {
 
         return (
-            <div>
-                <form>
-                    <h3> New Employee </h3>
+            <div className='container'>
+                <form className="form">
+                    <h3>Новый сотрутдник</h3>
 
-                    <div style={{display:'flex'}}>
                         <TextField
                             hintText='Text'
                             fullWidth={true}
@@ -83,9 +82,7 @@ class NewEmployee extends Component {
                             floatingLabelText='Отчество'
                             ref='secondName'
                         />
-                    </div>
 
-                    <div style={{display:'flex'}}>
                         <TextField
                             hintText='Text'
                             fullWidth={true}
@@ -104,9 +101,7 @@ class NewEmployee extends Component {
                             floatingLabelText='Комментарий'
                             ref='comment'
                         />
-                    </div>
 
-                    <div style={{display:'flex'}}>
                         <TextField
                             hintText='Text'
                             fullWidth={true}
@@ -120,7 +115,6 @@ class NewEmployee extends Component {
                             ref='kved'
                             disabled={true}
                         />
-                    </div>
 
                     <RaisedButton label='СОХРАНИТЬ' fullWidth={true} style={{marginTop: '30px'}} onClick={this.handleChange} />
 

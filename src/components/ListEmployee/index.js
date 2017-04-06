@@ -63,8 +63,8 @@ class Employee extends Component {
 
 
         return (
-            <div>
-                <h3> Employee </h3>
+            <div className="container">
+                <h3> Таблица сотрудников </h3>
 
 
 

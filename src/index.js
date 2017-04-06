@@ -8,7 +8,7 @@ import { routes } from './routes'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Authentication from 'containers/LoginPage/Authentication'
+import Authentication from './containers/LoginPage/Authentication'
 
 const store = configureStore()
 

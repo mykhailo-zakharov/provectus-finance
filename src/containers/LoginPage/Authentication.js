@@ -22,14 +22,12 @@ export class Authentication extends Component {
             return this.props.children
         } else {
             return (
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <form className='form-inline' onSubmit={::this.handleSubmit}>
-                            <input className='form-control' type='text' placeholder='login'/>
-                            <input className='form-control' type='text' placeholder='pw'/>
-                            <button className='btn btn-primary' type='submit'>Войти</button>
-                        </form>
-                    </div>
+                <div className='authentication'>
+                    <form className='authentication-form' onSubmit={::this.handleSubmit}>
+                        <input className='authentication-input' type='text' placeholder='login'/>
+                        <input className='authentication-input' type='text' placeholder='pw'/>
+                        <button className='authentication-btn' type='submit'>Войти</button>
+                    </form>
                 </div>
             )
         }
