@@ -12,7 +12,7 @@ export const routes = (
   <div>
     <Route path='/' component={App}>
       <IndexRoute component={Home} />
-      <Route path='/list-employee' component={ListEmployee} />
+      {/*<Route path='/list-employee' component={ListEmployee} />*/}
       <Route path='/new-employee' component={NewEmployee} />
     </Route>
     <Route path='*' component={NotFound} />

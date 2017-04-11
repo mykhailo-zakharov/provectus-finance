@@ -1,24 +1,36 @@
+import URL from './root'
 
-const URL = 'http://54.202.244.88:8082';
 
 export function getAllEmployeesController() {
     let options = { method: 'GET' },
-        url = URL + '/employee/employees';
+        url = URL + 'employee/employees';
     return fetch(url, options);
 }
 
 export function createNewEmployee(data) {
-    console.log(data);
+    // console.log(data);
     let newData = Object.assign({}, data);
     let options = {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
                 //'Token': getToken() || ''
             },
             body: JSON.stringify(newData) },
-        url = URL + '/employee/';
+        url = URL + "employee/";
+    return fetch(url, options);
+}
+
+
+export function deleteEmployeesController(id) {
+    let options = {
+        method: 'DELETE',
+    },
+        // body: JSON.stringify(newData) },
+        url = URL + "employee/" + id;
+    console.log(url);
+
     return fetch(url, options);
 }
 

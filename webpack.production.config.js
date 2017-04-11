@@ -1,6 +1,4 @@
 
-require('./build-portal-client.js'); // пока не узнаю, как встроить это в процесс сборки - будет таким образом
-
 const webpack = require('webpack'),
     path = require('path'),
     autoprefixer = require('autoprefixer'),

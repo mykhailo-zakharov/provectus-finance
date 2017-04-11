@@ -30,22 +30,13 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <AppBar
-                    title="Provectus Finans"
-                    iconStyleLeft={{display: "none"}}
-                    //iconElementRight={<Logged />}
-                />
+            <div className="main-wrap">
 
                 <div className="header">
-                    {/*<h1>Provectus Finans</h1>*/}
-                    <ul className='nav'>
-                        <li className="nav-item"><NavLink onlyActiveOnIndex={true} to='/'>Главная</NavLink></li>
-                        <li className="nav-item"><NavLink to='/list-employee'>Список сотрудников</NavLink></li>
-                        <li className="nav-item"><NavLink to='/new-employee'>Добавление нового сотрудника</NavLink></li>
-                </ul>
-
-
+                    <h1 className="header-title">
+                        <NavLink to='/'>Provectus Finans</NavLink>
+                    </h1>
+                    <NavLink to='/new-employee'>Добавить нового сотрудника</NavLink>
                 </div>
 
                 {this.props.children}
