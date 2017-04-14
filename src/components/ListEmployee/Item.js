@@ -18,13 +18,13 @@ class Item extends Component {
     onSelected(){
         !this.props.isTable && this.props.onTable();
         this.props.getQuarter(this.props.item.id);
-
+        this.props.setActiveYmployee(this.props.item.id);
     }
 
     render(){
-        let {item, index} = this.props;
+        let {item, index,activeEmployee} = this.props;
         return(
-            <tr className="employee-table-row"
+            <tr className={"employee-table-row" + (activeEmployee == item.id ? " active" : "")}
                 onDoubleClick={this.onSelected}
             >
                 <td  className="employee-table-cell">{index + 1}</td>
@@ -49,7 +49,8 @@ class Item extends Component {
 const mapStateToProps = (state) => {
     return {
         employee: state.employee,
-        isTable: state.common.isTable
+        activeEmployee: state.employee.activeEmployee,
+        isTable: state.common.isTable,
     }
 }
 

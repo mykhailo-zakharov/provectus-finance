@@ -20,10 +20,15 @@ class FinanceData extends Component {
 
     addQuarter(){
         let year = this.refs.quarterYear.value,
-            numb = this.refs.quarterNumb.value;
+            numb = this.refs.quarterNumb.value,
             id = this.props.employees.activeEmployee;
         console.log(year, numb);
         this.props.addQuarter(year, numb, id);
+
+        this.refs.quarterYear.value = "";
+        this.refs.quarterNumb.value = "";
+
+        // this.props.getQuarter(id);
     }
 
 
@@ -34,32 +39,42 @@ class FinanceData extends Component {
 
         return (
             <div className='finance-data'>
-                <div>
+                <div className="quarter-add-container">
                     <h1>Добавить новый квартал</h1>
-                    <div>
+                    {/*<div>*/}
                         <span>Год</span>
                         <input type="text" ref="quarterYear"/>
-                    </div>
-                    <div>
+                    {/*</div>*/}
+                    {/*<div>*/}
                         <span>Номер квартала</span>
                         <input type="text" ref="quarterNumb"/>
-                    </div>
-                    <div>
+                    {/*</div>*/}
+                    {/*<div>*/}
                         <button onClick={this.addQuarter}>ДОБАВИТЬ</button>
-                    </div>
+                    {/*</div>*/}
                 </div>
 
-                <hr />
 
-                {this.props.quarters && this.props.quarters.length > 0  &&
-                    this.props.quarters.map((item)=>{
-                        return (
-                            <Quarter key={item.id}
-                                     item={item}
-                            />
-                        )
-                    })
-                }
+
+                <div className="quarter-container">
+
+                    <div className="quarter-container-inner">
+
+
+
+                        {this.props.quarters && this.props.quarters.length > 0  &&
+                            this.props.quarters.map((item)=>{
+                                return (
+                                    <Quarter key={item.id}
+                                             item={item}
+                                    />
+                                )
+                            })
+                        }
+
+                    </div>
+
+                </div>
 
             </div>
         )

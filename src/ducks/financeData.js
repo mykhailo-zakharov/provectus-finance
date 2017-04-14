@@ -3,6 +3,8 @@ import {getQuarterController, addQuarterController} from '../api/financeData'
 export const types = {
     GET_FINANCE_DATA: "GET_FINANCE_DATA",
     SAVE_FINANCE_DATA: "SAVE_FINANCE_DATA",
+    SET_ACTIVE_EMPLOYEE: "SET_ACTIVE_EMPLOYEE",
+    ADD_QUATER: "ADD_QUATER",
 }
 
 export const initialState = {
@@ -18,6 +20,11 @@ export default (state = initialState, action) => {
         case types.SAVE_FINANCE_DATA:
             return {...state, list: action.data};
 
+        case types.ADD_QUATER:
+            let newList = [...state.list];
+            newList.push(action.data);
+            return {...state, list: newList};
+
         default:
             return state
     }
@@ -26,49 +33,42 @@ export default (state = initialState, action) => {
 //
 export const actions = {
 
-    getQuarter:(year, numb, id) => (dispatch, getState) => {
-
+    getQuarter:(id) => (dispatch, getState) => {
+        console.log("id "+id);
         dispatch({
             type: types.GET_FINANCE_DATA
         });
 
-        dispatch({
-            type: types.SET_ACTIVE_EMPLOYEE,
-            id: id
-        });
-
-        getQuarterController(year, numb, id)
+        getQuarterController(id)
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
 
-                console.log(data);
+                // console.log(data);
 
                 dispatch({
                     type: types.SAVE_FINANCE_DATA,
                     data: data
                 });
 
-
             }).catch((error) => console.log(error));
 
     },
 
-    addQuarter:(params = {}) => (dispatch) => {
+    addQuarter:(year, numb, id) => (dispatch) => {
 
-        addQuarterController(params)
+        addQuarterController(year, numb, id)
             .then(function (response) {
                 return response.json();
             })
-            .then(function (message) {
+            .then(function (data) {
+                console.log(data);
 
-                console.log('add in quarter :', message);
-
-                // dispatch({
-                //     type: types.DELETE_EMPLOYEE
-                // });
-
+                dispatch({
+                    type: types.ADD_QUATER,
+                    data: data
+                });
 
             }).catch((error) => console.log(error))
     }

@@ -66,6 +66,13 @@ export const actions = {
 
 
             }).catch((error) => console.log(error))
+    },
+
+    setActiveYmployee:(id) => (dispatch) => {
+        dispatch({
+            type: types.SET_ACTIVE_EMPLOYEE,
+            id
+        });
     }
 
 

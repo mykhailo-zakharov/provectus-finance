@@ -1,0 +1,33 @@
+.finance-data {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+.quarter-container {
+  flex: 1 1 auto;
+  position: relative;
+  overflow: auto;
+}
+.quarter-container-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.quarter-table {
+  width: 100%;
+  border-collapse: collapse;
+  td {
+    border: 1px solid #ddd;
+    padding: 5px;
+  }
+}
+.quarter-box {
+  margin-top: 3rem;
+}
+.quarter-title {
+  font-weight: 700;
+  padding: 0 0 1rem 2rem;
+}
+.quarter-add-container {
+  border-bottom: 1px solid #000;
+}

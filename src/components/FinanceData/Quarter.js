@@ -20,14 +20,17 @@ class Quarter extends Component {
         let item = this.props.item;
 
         return(
-            <div>
+            <div className="quarter-box">
 
-                <h1>Quarter {item.quarterDefinition.year + " " + item.quarterDefinition.quarterName}</h1>
+                <h1 className="quarter-title">Quarter {item.quarterDefinition.year + " " + item.quarterDefinition.quarterName}</h1>
 
-                <table>
-                    <tbody>
-                    <tr>    				 
-                        <td>Наименование Контрагента</td>
+                <table className="quarter-table">
+                    <tr>
+                        <td />
+                        <td colSpan="7">Валюта Поступления</td>
+                        <td colSpan="3">Единый Налог</td>
+                    </tr>
+                    <tr><td>Наименование Контрагента</td>
                         <td>Дата поступения денежных средств</td>
                         <td>Доллары</td>
                         <td>Гривна</td>
@@ -38,9 +41,7 @@ class Quarter extends Component {
                         <td>Начислено</td>
                         <td>Оплачено</td>
                         <td>Дата оплаты</td>
-                        <td></td>
                     </tr>
-                    </tbody>
                 </table>
 
             </div>

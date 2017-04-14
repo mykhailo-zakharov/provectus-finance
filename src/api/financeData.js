@@ -10,18 +10,23 @@ export function getQuarterController(id) {
 
 export function addQuarterController(year, numb, id) {
 
-    console.log(data);
+    console.log(year, numb, id);
 
-    let newData = Object.assign({}, data);
+    let newData = {
+        "quarterDefinition": {
+            "quarterName": "Q"+numb,
+            "year": year
+        }
+    };
 
-    // let options = {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json, text/plain, */*',
-    //             'Content-Type': 'application/json'
-    //             //'Token': getToken() || ''
-    //         },
-    //         body: JSON.stringify(newData) },
-    //     url = URL + "quarter/" + id;
-    // return fetch(url, options);
+    let options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+                //'Token': getToken() || ''
+            },
+            body: JSON.stringify(newData) },
+        url = URL + "quarter/" + id;
+    return fetch(url, options);
 }
