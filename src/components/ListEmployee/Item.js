@@ -16,7 +16,7 @@ class Item extends Component {
     }
 
     onSelected(){
-        this.props.toggleTable();
+        !this.props.isTable && this.props.onTable();
         this.props.getQuarter(this.props.item.id);
 
     }
@@ -35,7 +35,13 @@ class Item extends Component {
                 <td  className="employee-table-cell" >{item.department}</td>
                 <td  className="employee-table-cell" >{item.comment}</td>
                 <td  className="employee-table-cell" >{item.kved}</td>
-                <td  className="employee-table-cell"  onClick={() => this.props.delete(item.id)}>DEL</td>
+                <td  className="employee-table-cell"  onClick={() => this.props.delete(item.id)}>
+                    <svg viewBox="0 0 24 24"
+                         className="employee-table-btn-del"
+                    >
+                        <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_del" />
+                    </svg>
+                </td>
             </tr>
         )
     }

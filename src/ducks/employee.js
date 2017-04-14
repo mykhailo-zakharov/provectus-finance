@@ -2,11 +2,12 @@ import {getAllEmployeesController, deleteEmployeesController} from '../api/emplo
 
 export const types = {
     SAVE_LIST_EMPLOYEE: "SAVE_LIST_EMPLOYEE",
-    DELETE_EMPLOYEE: "DELETE_EMPLOYEE"
+    DELETE_EMPLOYEE: "DELETE_EMPLOYEE",
+    SET_ACTIVE_EMPLOYEE: "SET_ACTIVE_EMPLOYEE"
 }
 
 export const initialState = {
-
+    activeEmployee: 1
 }
 
 export default (state = initialState, action) => {
@@ -14,6 +15,9 @@ export default (state = initialState, action) => {
 
         case types.SAVE_LIST_EMPLOYEE:
             return {...state, list: action.data};
+
+        case types.SET_ACTIVE_EMPLOYEE:
+            return {...state, activeEmployee: action.id};
 
         default:
             return state

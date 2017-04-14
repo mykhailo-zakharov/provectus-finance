@@ -58,6 +58,16 @@ class Employee extends Component {
                             <td className="employee-table-cell">комментарий</td>
                             <td className="employee-table-cell">КВЕД</td>
                             <td className="employee-table-cell"></td>
+
+                            {this.props.isTable ?  (
+                                            <svg viewBox="0 0 24 24"
+                                                 className="employee-table-btn-open"
+                                                 onClick={()=>this.props.offTable()}
+                                            >
+                                                <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_open" />
+                                            </svg>
+                                ) : ""}
+
                         </tr>
                         </tbody>
 

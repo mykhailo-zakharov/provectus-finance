@@ -1,4 +1,4 @@
-import {getQuarterController} from '../api/financeData'
+import {getQuarterController, addQuarterController} from '../api/financeData'
 
 export const types = {
     GET_FINANCE_DATA: "GET_FINANCE_DATA",
@@ -26,53 +26,52 @@ export default (state = initialState, action) => {
 //
 export const actions = {
 
-    getQuarter:(params = {}) => (dispatch, getState) => {
-
-        console.log(params);
+    getQuarter:(year, numb, id) => (dispatch, getState) => {
 
         dispatch({
             type: types.GET_FINANCE_DATA
         });
 
-        getQuarterController(params)
+        dispatch({
+            type: types.SET_ACTIVE_EMPLOYEE,
+            id: id
+        });
+
+        getQuarterController(year, numb, id)
             .then(function (response) {
-                return response;
+                return response.json();
             })
-            .then(function (message) {
+            .then(function (data) {
 
-                console.log('message in quarter :', message);
+                console.log(data);
 
-                // if (message.error) throw new Error();
-                //
-                // dispatch({
-                //     type: types.SAVE_FINANCE_DATA,
-                //     data: message.content
-                // });
+                dispatch({
+                    type: types.SAVE_FINANCE_DATA,
+                    data: data
+                });
 
 
             }).catch((error) => console.log(error));
 
     },
-//
-//     deleteEmployees:(params = {}) => (dispatch, getState) => {
-//
-//         deleteEmployeesController(dispatch)
-//             .then(function (response) {
-//                 return response.json();
-//             })
-//             .then(function (message) {
-//
-//                 console.log('message in operators :', message);
-//
-//                 if (message.error) throw new Error();
-//
-//                 dispatch({
-//                     type: types.DELETE_EMPLOYEE
-//                 });
-//
-//
-//             }).catch((error) => console.log(error))
-//     }
-//
-//
+
+    addQuarter:(params = {}) => (dispatch) => {
+
+        addQuarterController(params)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (message) {
+
+                console.log('add in quarter :', message);
+
+                // dispatch({
+                //     type: types.DELETE_EMPLOYEE
+                // });
+
+
+            }).catch((error) => console.log(error))
+    }
+
+
 }

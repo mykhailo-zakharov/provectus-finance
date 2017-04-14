@@ -17,9 +17,33 @@ class Quarter extends Component {
 
 
     render(){
+        let item = this.props.item;
 
         return(
-            <h1>Quarter</h1>
+            <div>
+
+                <h1>Quarter {item.quarterDefinition.year + " " + item.quarterDefinition.quarterName}</h1>
+
+                <table>
+                    <tbody>
+                    <tr>    				 
+                        <td>Наименование Контрагента</td>
+                        <td>Дата поступения денежных средств</td>
+                        <td>Доллары</td>
+                        <td>Гривна</td>
+                        <td>Курс НБУ на дату поступления</td>
+                        <td>Эквивалент в гривне по курсу НБУ к налогообложению</td>
+                        <td>Сумма к налогообложению</td>
+                        <td>Период</td>
+                        <td>Начислено</td>
+                        <td>Оплачено</td>
+                        <td>Дата оплаты</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
         )
     }
 }

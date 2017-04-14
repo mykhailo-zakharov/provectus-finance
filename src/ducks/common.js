@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
 }
 
 export const actions = {
-    onTable: () => ({ type: IS_TABLE_TRUE}),
-    offTable: () => ({ type: actionTypes.IS_TABLE_FALSE}),
+    onTable: () => ({ type: types.IS_TABLE_TRUE}),
+    offTable: () => ({ type: types.IS_TABLE_FALSE}),
     toggleTable: () => ({ type: types.IS_TABLE_TOGGLE })
 }

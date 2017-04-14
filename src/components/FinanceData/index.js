@@ -2,6 +2,12 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
+import Quarter from './Quarter'
+
+import {actions as employeeActions} from '../../ducks/employee'
+import {actions as commonActions} from '../../ducks/common'
+import {actions as financeDataActions} from '../../ducks/financeData'
+
 
 class FinanceData extends Component {
     constructor(){
@@ -9,6 +15,15 @@ class FinanceData extends Component {
         // this.state = {
         //   isTable: false
         // }
+        this.addQuarter = this.addQuarter.bind(this);
+    }
+
+    addQuarter(){
+        let year = this.refs.quarterYear.value,
+            numb = this.refs.quarterNumb.value;
+            id = this.props.employees.activeEmployee;
+        console.log(year, numb);
+        this.props.addQuarter(year, numb, id);
     }
 
 
@@ -19,9 +34,32 @@ class FinanceData extends Component {
 
         return (
             <div className='finance-data'>
+                <div>
+                    <h1>Добавить новый квартал</h1>
+                    <div>
+                        <span>Год</span>
+                        <input type="text" ref="quarterYear"/>
+                    </div>
+                    <div>
+                        <span>Номер квартала</span>
+                        <input type="text" ref="quarterNumb"/>
+                    </div>
+                    <div>
+                        <button onClick={this.addQuarter}>ДОБАВИТЬ</button>
+                    </div>
+                </div>
 
+                <hr />
 
-                <h1>FinanceData </h1>
+                {this.props.quarters && this.props.quarters.length > 0  &&
+                    this.props.quarters.map((item)=>{
+                        return (
+                            <Quarter key={item.id}
+                                     item={item}
+                            />
+                        )
+                    })
+                }
 
             </div>
         )
@@ -30,15 +68,17 @@ class FinanceData extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        employee: state.employee,
+        employees: state.employee,
+        quarters: state.financeData.list,
         isTable: state.common.isTable
     }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//     ...bindActionCreators({
-//         ...commonActions,
-//         ...employeeActions
-//     }, dispatch)
-// })
-export default connect(mapStateToProps, null)(FinanceData)
+const mapDispatchToProps = (dispatch) => ({
+    ...bindActionCreators({
+        ...commonActions,
+        ...employeeActions,
+        ...financeDataActions
+    }, dispatch)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(FinanceData)
