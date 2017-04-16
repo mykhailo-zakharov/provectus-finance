@@ -30,3 +30,24 @@ export function addQuarterController(year, numb, id) {
         url = URL + "quarter/" + id;
     return fetch(url, options);
 }
+
+export function addTaxController(year, numb, idEmployee, idQuarter) {
+
+    console.log(year, numb, idEmployee, idQuarter);
+
+    let newData = {
+        "counterpartyName": name,
+        "receivingDate": date
+    };
+
+    let options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+                //'Token': getToken() || ''
+            },
+            body: JSON.stringify(newData) },
+        url = URL + "taxRecord/" + idEmployee + "/" + idQuarter;
+    return fetch(url, options);
+}

@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
+import Tax from './Tax'
+
 import {actions as employeeActions} from '../../ducks/employee'
 import {actions as commonActions} from '../../ducks/common'
 import {actions as financeDataActions} from '../../ducks/financeData'
@@ -42,6 +44,10 @@ class Quarter extends Component {
                         <td>Оплачено</td>
                         <td>Дата оплаты</td>
                     </tr>
+
+                    {item.taxRecords && item.taxRecords.length > 0 &&
+                        item.taxRecords.map((item)=> <Tax item={item} /> )}
+
                 </table>
 
             </div>

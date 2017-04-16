@@ -17,9 +17,24 @@ class Tax extends Component {
 
 
     render(){
+        let item = this.props.item,
+            date = new Date(item.receivingDate);
+        date = date > 0 ? (date.toDateString()) : "-";
 
         return(
-            <h1>Tax</h1>
+            <tr>
+                <td>{item.counterpartyName}</td>
+                <td>{date}</td>
+                <td>{item.usdRevenue}</td>
+                <td>{item.uahRevenue}</td>
+                <td>{item.exchRateUsdUahNBUatReceivingDate}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         )
     }
 }

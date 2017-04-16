@@ -8,7 +8,7 @@ export const types = {
 }
 
 export const initialState = {
-
+    list: []
 }
 
 export default (state = initialState, action) => {
