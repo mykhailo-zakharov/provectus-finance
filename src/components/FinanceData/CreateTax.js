@@ -20,7 +20,7 @@ class CreateTax extends Component {
             name: "",
             usd: 0,
             grn: 0,
-            kurs: 0,
+            kurs: null,
             isLoadKurs: false
         };
 
@@ -53,16 +53,22 @@ class CreateTax extends Component {
     render() {
 
         if (!this.state.isEdite) {
-            return <button onClick={() => this.setState({isEdite: true})}> + </button>
+            return <svg viewBox="0 0 24 24"
+                        className="tax-btn-add"
+                        onClick={() => this.setState({isEdite: true})}
+                >
+                    <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_note_add" />
+                </svg>
         }
 
 
         let DateTimeFormat = global.Intl.DateTimeFormat;
 
         return (
-            <tr>
+            <tr className="tax-tr-edit">
                 <td>
                     <input type="text"
+                           className="tax-edit-input-name"
                            placeholder="Введите название"
                            value={this.state.name}
                            onChange={(e) => this.setState({name: e.target.value})}
@@ -94,6 +100,7 @@ class CreateTax extends Component {
                 <td>
                     {this.state.kurs &&
                         <input type="number"
+                               className="tax-edit-input-numb"
                                value={this.state.usd}
                                onChange={(e) => this.setState({usd: +e.target.value})}
                         />
@@ -102,18 +109,22 @@ class CreateTax extends Component {
                 <td>
                     {this.state.kurs &&
                         <input type="number"
+                               className="tax-edit-input-numb"
                                value={this.state.grn}
                                onChange={(e) => this.setState({grn: +e.target.value})}
                         />
                     }
                 </td>
                 <td>{this.state.kurs && this.state.kurs}</td>
-                <td>{this.state.grn + this.state.usd * this.state.kurs}</td>
+                <td>{this.state.kurs && (this.state.usd * this.state.kurs)}</td>
+                <td>{this.state.kurs && (this.state.grn + this.state.usd * this.state.kurs)}</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                {this.state.kurs &&
+                    <button className="tax-btn tax-btn-save">Сохранить</button>
+                }
             </tr>
         )
     }

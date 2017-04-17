@@ -44,7 +44,10 @@ export const actions = {
                 });
 
 
-            }).catch((error) => console.log(error));
+            }).catch((error) => {
+                console.log(error);
+                alert("Ошибка подключиния к серверу!");
+            });
 
     },
 

@@ -22,6 +22,7 @@
   }
 }
 .quarter-box {
+  position: relative;
   margin-top: 3rem;
 }
 .quarter-title {
@@ -31,3 +32,48 @@
 .quarter-add-container {
   border-bottom: 1px solid #000;
 }
+.tax-tr-edit {
+  position: relative;
+}
+.tax-btn {
+  background-color: #ddd;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: .5rem  1rem;
+  border: 1px solid #ddd;
+  transition-duration: .3s;
+  cursor: pointer;
+  &:hover {
+    background: $main_color;
+    border-color: $main_color;
+  }
+}
+.tax-btn-add {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 1rem;
+  fill: #ddd;
+  transition-duration: .3s;
+  cursor: pointer;
+  &:hover {
+    fill: $main_color
+  }
+}
+.tax-btn-save {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+.tax-edit-input-name {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.tax-edit-input-numb {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  width: 7rem;
+}
+

@@ -41,17 +41,13 @@ class FinanceData extends Component {
             <div className='finance-data'>
                 <div className="quarter-add-container">
                     <h1>Добавить новый квартал</h1>
-                    {/*<div>*/}
                         <span>Год</span>
                         <input type="text" ref="quarterYear"/>
-                    {/*</div>*/}
-                    {/*<div>*/}
                         <span>Номер квартала</span>
                         <input type="text" ref="quarterNumb"/>
-                    {/*</div>*/}
-                    {/*<div>*/}
-                        <button onClick={this.addQuarter}>ДОБАВИТЬ</button>
-                    {/*</div>*/}
+                        <button onClick={this.addQuarter}
+                                className="tax-btn"
+                        >ДОБАВИТЬ</button>
                 </div>
 
 
