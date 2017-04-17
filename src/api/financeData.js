@@ -51,3 +51,10 @@ export function addTaxController(year, numb, idEmployee, idQuarter) {
         url = URL + "taxRecord/" + idEmployee + "/" + idQuarter;
     return fetch(url, options);
 }
+
+
+export function getKursController(date) {
+    let options = { method: 'GET' },
+        url = URL + "exchangeRatesUah/USD/" + date;
+    return fetch(url, options);
+}

@@ -7,10 +7,15 @@ import configureStore from './store/configureStore'
 import { routes } from './routes'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Authentication from './containers/LoginPage/Authentication'
 
-const store = configureStore()
+injectTapEventPlugin();
+
+
+
+const store = configureStore();
 
 render(
   <Provider store={store}>

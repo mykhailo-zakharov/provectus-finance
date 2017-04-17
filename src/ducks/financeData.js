@@ -1,4 +1,8 @@
-import {getQuarterController, addQuarterController} from '../api/financeData'
+import {
+    getQuarterController,
+    addQuarterController,
+    getKursController
+} from '../api/financeData'
 
 export const types = {
     GET_FINANCE_DATA: "GET_FINANCE_DATA",
@@ -71,6 +75,16 @@ export const actions = {
                 });
 
             }).catch((error) => console.log(error))
+    },
+
+    getKurs:(date) => (dispatch) => {
+
+        return getKursController(date)
+            .then(function (response) {
+                return response.json();
+            })
+            .catch((error) => console.log(error))
+
     }
 
 

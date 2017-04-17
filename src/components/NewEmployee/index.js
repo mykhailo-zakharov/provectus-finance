@@ -9,7 +9,6 @@ import Snackbar from 'material-ui/Snackbar';
 import * as actionAmployees from '../../actions/Employee'
 import {createNewEmployee} from '../../api/employee'
 
-
 class NewEmployee extends Component {
     constructor(props){
         super(props);
@@ -61,7 +60,9 @@ class NewEmployee extends Component {
 
         return (
             <div className='container'>
+
                 <form className="form">
+
                     <h3>Новый сотрутдник</h3>
 
                         <TextField
