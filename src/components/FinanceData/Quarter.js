@@ -30,8 +30,8 @@ class Quarter extends Component {
                 <table className="quarter-table">
                     <tr>
                         <td />
-                        <td colSpan="7">Валюта Поступления</td>
-                        <td colSpan="3">Единый Налог</td>
+                        <td colSpan="6">Валюта Поступления</td>
+                        <td>Единый Налог</td>
                     </tr>
                     <tr><td>Наименование Контрагента</td>
                         <td>Дата поступения денежных средств</td>
@@ -40,16 +40,13 @@ class Quarter extends Component {
                         <td>Курс НБУ на дату поступления</td>
                         <td>Эквивалент в гривне по курсу НБУ к налогообложению</td>
                         <td>Сумма к налогообложению</td>
-                        <td>Период</td>
                         <td>Начислено</td>
-                        <td>Оплачено</td>
-                        <td>Дата оплаты</td>
                     </tr>
 
                     {item.taxRecords && item.taxRecords.length > 0 &&
                         item.taxRecords.map((item)=> <Tax item={item} /> )}
 
-                    <CreateTax />
+                    <CreateTax idQuarter={item.id} index={this.props.index} />
 
                 </table>
 
@@ -59,8 +56,7 @@ class Quarter extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        employee: state.employee,
-        isTable: state.common.isTable
+        employee: state.employee
     }
 }
 

@@ -34,8 +34,6 @@ export const actions = {
             })
             .then(function (message) {
 
-                console.log('message in operators :', message);
-
                 if (message.error) throw new Error();
 
                 dispatch({

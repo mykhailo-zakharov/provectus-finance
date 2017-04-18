@@ -28,12 +28,9 @@ class Tax extends Component {
                 <td>{item.usdRevenue}</td>
                 <td>{item.uahRevenue}</td>
                 <td>{item.exchRateUsdUahNBUatReceivingDate}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue}</td>
+                <td>{item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue}</td>
+                <td>{( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ) * 0.2}</td>
             </tr>
         )
     }

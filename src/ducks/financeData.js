@@ -1,7 +1,8 @@
 import {
     getQuarterController,
     addQuarterController,
-    getKursController
+    getKursController,
+    addTaxController
 } from '../api/financeData'
 
 export const types = {
@@ -9,6 +10,7 @@ export const types = {
     SAVE_FINANCE_DATA: "SAVE_FINANCE_DATA",
     SET_ACTIVE_EMPLOYEE: "SET_ACTIVE_EMPLOYEE",
     ADD_QUATER: "ADD_QUATER",
+    SAVE_ADDED_QUATER: "SAVE_ADDED_QUATER",
 }
 
 export const initialState = {
@@ -38,7 +40,6 @@ export default (state = initialState, action) => {
 export const actions = {
 
     getQuarter:(id) => (dispatch, getState) => {
-        console.log("id "+id);
         dispatch({
             type: types.GET_FINANCE_DATA
         });
@@ -75,6 +76,18 @@ export const actions = {
                 });
 
             }).catch((error) => console.log(error))
+    },
+
+    addTax:(data, idEmployee, idQuarter) => (dispatch) => {
+
+        return addTaxController(data, idEmployee, idQuarter)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                return data;
+            })
+            .catch((error) => console.log(error))
     },
 
     getKurs:(date) => (dispatch) => {

@@ -18,20 +18,18 @@ class CreateTax extends Component {
         this.state = {
             isEdite: false,
             name: "",
+            date: null,
             usd: 0,
             grn: 0,
             kurs: null,
-            isLoadKurs: false
         };
 
 
         this.handleSetDate = this.handleSetDate.bind(this);
+        this.saveTax = this.saveTax.bind(this);
     }
 
     handleSetDate(event, date) {
-        this.setState({
-            isLoadKurs: true
-        });
         let d = date,
             curr_date = d.getDate();
         curr_date = curr_date < 10 ? ("0" + curr_date) : curr_date;
@@ -43,12 +41,39 @@ class CreateTax extends Component {
         this.props.getKurs(dateFormat)
             .then((data) => {
                 this.setState({
+                    date: +date,
                     kurs: data,
                     isLoadKurs: false
                 });
             })
     }
 
+    saveTax(){
+        let self = this.state;
+        console.log(self.name, self.date, self.usd, self.grn, self.kurs);
+        let data = {
+            "counterpartyName": self.name,
+            "receivingDate": self.date,
+            "uahRevenue": self.grn,
+            "usdRevenue": self.usd,
+            "exchRateUsdUahNBUatReceivingDate": self.kurs
+        };
+        let idEmployee = this.props.employee.activeEmployee,
+            idQuarter = this.props.idQuarter;
+        this.props.addTax(data, idEmployee, idQuarter)
+            .then(()=>{
+                this.props.getQuarter(idEmployee);
+            });
+
+        this.setState({
+            isEdite: false,
+            name: "",
+            date: null,
+            usd: 0,
+            grn: 0,
+            kurs: null,
+        });
+    }
 
     render() {
 
@@ -80,6 +105,7 @@ class CreateTax extends Component {
                                 onChange={::this.handleSetDate}
                                 autoOk="true"
                                 cancelLabel="Отмена"
+                                maxDate={new Date()}
                                 style={{
                                     width: "120px",
                                     display: "inline-block",
@@ -118,12 +144,11 @@ class CreateTax extends Component {
                 <td>{this.state.kurs && this.state.kurs}</td>
                 <td>{this.state.kurs && (this.state.usd * this.state.kurs)}</td>
                 <td>{this.state.kurs && (this.state.grn + this.state.usd * this.state.kurs)}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{this.state.kurs && ((this.state.grn + this.state.usd * this.state.kurs) * 0.2)}</td>
                 {this.state.kurs &&
-                    <button className="tax-btn tax-btn-save">Сохранить</button>
+                    <button className="tax-btn tax-btn-save"
+                            onClick={this.saveTax}
+                    >Сохранить</button>
                 }
             </tr>
         )

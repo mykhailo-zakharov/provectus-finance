@@ -47,7 +47,9 @@ class FinanceData extends Component {
                         <input type="text" ref="quarterNumb"/>
                         <button onClick={this.addQuarter}
                                 className="tax-btn"
-                        >ДОБАВИТЬ</button>
+                        >
+                            ДОБАВИТЬ
+                        </button>
                 </div>
 
 
@@ -59,9 +61,10 @@ class FinanceData extends Component {
 
 
                         {this.props.quarters && this.props.quarters.length > 0  &&
-                            this.props.quarters.map((item)=>{
+                            this.props.quarters.map((item, index)=>{
                                 return (
                                     <Quarter key={item.id}
+                                             index={index}
                                              item={item}
                                     />
                                 )
