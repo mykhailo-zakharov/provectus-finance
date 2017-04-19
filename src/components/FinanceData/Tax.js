@@ -30,7 +30,7 @@ class Tax extends Component {
                 <td>{item.exchRateUsdUahNBUatReceivingDate}</td>
                 <td>{item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue}</td>
                 <td>{item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue}</td>
-                <td>{( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ) * 0.2}</td>
+                <td>{( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ) * 0.05}</td>
             </tr>
         )
     }

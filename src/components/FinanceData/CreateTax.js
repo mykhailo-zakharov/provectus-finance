@@ -144,7 +144,7 @@ class CreateTax extends Component {
                 <td>{this.state.kurs && this.state.kurs}</td>
                 <td>{this.state.kurs && (this.state.usd * this.state.kurs)}</td>
                 <td>{this.state.kurs && (this.state.grn + this.state.usd * this.state.kurs)}</td>
-                <td>{this.state.kurs && ((this.state.grn + this.state.usd * this.state.kurs) * 0.2)}</td>
+                <td>{this.state.kurs && ((this.state.grn + this.state.usd * this.state.kurs) * 0.05)}</td>
                 {this.state.kurs &&
                     <button className="tax-btn tax-btn-save"
                             onClick={this.saveTax}
