@@ -20,6 +20,7 @@ class Employee extends Component {
 
         // };
         this.deleteEmployee = this.deleteEmployee.bind(this);
+        this.reopen = this.reopen.bind(this);
     }
 
     deleteEmployee(id) {
@@ -37,14 +38,17 @@ class Employee extends Component {
 
     }
 
+    reopen(){
+        this.props.offTable();
+        this.props.setActiveYmployee(null);
+    }
+
     render() {
         let isTable = this.props.isTable;
 
         return (
             <div className={"employee-list" + (!isTable ? "" : " mini")}>
                 <div className="employee-list-inner">
-
-                    <h3 >Сотрудники</h3>
 
                     <table className="table">
                         <tbody >
@@ -62,7 +66,7 @@ class Employee extends Component {
                             {this.props.isTable ?  (
                                             <svg viewBox="0 0 24 24"
                                                  className="employee-table-btn-open"
-                                                 onClick={()=>this.props.offTable()}
+                                                 onClick={this.reopen}
                                             >
                                                 <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_open" />
                                             </svg>

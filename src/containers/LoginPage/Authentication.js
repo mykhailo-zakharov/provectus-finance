@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as UserActions from '../../actions/UserActions'
+
+import {actions as employeeActions} from '../../ducks/employee'
+import {actions as commonActions} from '../../ducks/common'
+import {actions as financeDataActions} from '../../ducks/financeData'
+
 
 export class Authentication extends Component {
     handleSubmit(e) {
         e.preventDefault();
-        this.props.UserActions.login(e.target.elements[0].value, e.target.elements[1].value)
+        this.props.login(e.target.elements[0].value, e.target.elements[1].value)
     }
 
     render() {
         let access = localStorage.getItem('access');
 
-        console.log('access: ', access,this.props.user.isAuthenticated);
-
-        if(this.props.user.isAuthenticated !== true && access){
-            this.props.UserActions.logInStorage('admin');
+        if(this.props.common.isAuthenticated !== true && access){
+            this.props.logInStorage('admin');
         }
 
-        if(this.props.user.isAuthenticated === true || access) {
+        if(this.props.common.isAuthenticated === true || access) {
             return this.props.children
         } else {
             return (
@@ -34,16 +36,19 @@ export class Authentication extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
-        user: state.user
+        common: state.common
     }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-      UserActions: bindActionCreators(UserActions, dispatch)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+    ...bindActionCreators({
+        ...commonActions,
+        ...employeeActions,
+        ...financeDataActions
+    }, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Authentication)
+

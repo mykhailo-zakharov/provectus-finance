@@ -6,8 +6,12 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 
-import * as actionAmployees from '../../actions/Employee'
 import {createNewEmployee} from '../../api/employee'
+
+import {actions as employeeActions} from '../../ducks/employee'
+import {actions as commonActions} from '../../ducks/common'
+import {actions as financeDataActions} from '../../ducks/financeData'
+
 
 class NewEmployee extends Component {
     constructor(props){
@@ -131,14 +135,18 @@ class NewEmployee extends Component {
         )
     }
 }
-function mapStateToProps(state) {
+
+const mapStateToProps = (state) => {
     return {
         employee: state.employee
     }
 }
-function mapDispatchToProps(dispatch) {
-    return {
-        actionAmployees: bindActionCreators(actionAmployees, dispatch)
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    ...bindActionCreators({
+        ...commonActions,
+        ...employeeActions,
+        ...financeDataActions
+    }, dispatch)
+})
+
 export default connect(mapStateToProps, mapDispatchToProps)(NewEmployee)

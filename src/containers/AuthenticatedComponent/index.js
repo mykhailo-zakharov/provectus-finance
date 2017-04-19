@@ -2,14 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { ROUTING } from '../../constants/Routing'
 
+
 export default function requireAuthentication(Component) {
 
   class AuthenticatedComponent extends React.Component {
     componentWillMount() {
-      this.checkAuth(this.props.user)
+      this.checkAuth(this.props.common)
     }
     componentWillReceiveProps(nextProps) {
-      this.checkAuth(nextProps.user)
+      this.checkAuth(nextProps.common)
     }
     checkAuth(user) {
       if (!user.isAuthenticated) {
@@ -25,7 +26,7 @@ export default function requireAuthentication(Component) {
     render() {
       return (
         <div>
-          {this.props.user.isAuthenticated === true
+          {this.props.common.isAuthenticated === true
             ? <Component {...this.props} />
             : null
           }
@@ -36,7 +37,7 @@ export default function requireAuthentication(Component) {
 
   function mapStateToProps(state) {
     return {
-      user: state.user
+      common: state.common
     }
   }
 
