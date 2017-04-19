@@ -56,7 +56,7 @@ export const actions = {
 
     login: (login, pw)  => (dispatch, getState) => {
             dispatch({
-                type: LOGIN_REQUEST
+                type: types.LOGIN_REQUEST
             });
             if(login === "admin" && pw === "admin") {
                 localStorage.setItem("login", login);

@@ -27,7 +27,7 @@ export class Authentication extends Component {
                 <div className='authentication'>
                     <form className='authentication-form' onSubmit={::this.handleSubmit}>
                         <input className='authentication-input' type='text' placeholder='login'/>
-                        <input className='authentication-input' type='text' placeholder='pw'/>
+                        <input className='authentication-input' type='password' placeholder='pw'/>
                         <button className='authentication-btn' type='submit'>Войти</button>
                     </form>
                 </div>
