@@ -1,0 +1,122 @@
+.preload {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(8, 8, 8, 0.65);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+
+.preload-box{
+  position: absolute;
+  animation:spin 15s linear infinite;
+  top: 50%;
+  left: 50%;
+}
+.preload-dot{
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  position:absolute;
+  opacity:0;
+  transform-origin:0% 0%;
+  background-color: $main_color;
+  &:nth-child(1){
+    top: 30px;
+    left: -10px;
+    animation: osc 2s ease-in-out 0s infinite;
+  }
+  &:nth-child(2){
+    top: 18.2843px;
+    left: 18.2843px;
+    animation: osc 2s ease-in-out 0.25s infinite;
+  }
+  &:nth-child(3){
+    top: -10px;
+    left: 30px;
+    animation: osc 2s ease-in-out 0.5s infinite;
+  }
+  &:nth-child(4){
+    top: -38.2843px;
+    left: 18.2843px;
+    animation: osc 2s ease-in-out 0.75s infinite
+  }
+  &:nth-child(5){
+    top: -50px;
+    left: -10px;
+    animation: osc 2s ease-in-out 1s infinite
+  }
+  &:nth-child(6){
+    top: -38.2843px;
+    left: -38.2843px;
+    animation: osc 2s ease-in-out 1.25s infinite
+  }
+  &:nth-child(7){
+    top: -10px;
+    left: -50px;
+    animation: osc 2s ease-in-out 1.5s infinite
+  }
+  &:nth-child(8){
+    top: 18.2843px;
+    left: -38.2843px;
+    animation: osc 2s ease-in-out 1.75s infinite
+  }
+}
+
+@keyframes spin{
+  from{transform:rotate(360deg);}
+  to{transform:rotate(0deg);}
+}
+
+@keyframes osc {
+  0%{transform:scale(0.5); opacity:0}
+  50%{transform:scale(1.5); opacity:1}
+  100%{transform:scale(0.5); opacity:0}
+}
+
+//Начало анимированной строки
+
+.load-6 .letter {
+  animation-name: loadingF;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-direction: linear;
+}
+
+.letter {
+  display: inline-flex;
+}
+
+.load-wrapp {
+  display: flex;
+  position: absolute;
+  bottom: 34%;
+  left: 47%;
+  color: azure;
+  font-size: 1.6rem;
+  margin: 0 auto;
+}
+
+.l-1 {animation-delay: .48s;}
+.l-2 {animation-delay: .6s;}
+.l-3 {animation-delay: .72s;}
+.l-4 {animation-delay: .84s;}
+.l-5 {animation-delay: .96s;}
+.l-6 {animation-delay: 1.08s;}
+.l-7 {animation-delay: 1.2s;}
+.l-8 {animation-delay: 1.32s;}
+.l-9 {animation-delay: 1.44s;}
+.l-10 {animation-delay: 1.56s;}
+.l-11 {animation-delay: 1.68s;}
+
+
+@keyframes loadingF {
+  0% {opacity: 0;}
+  50% {opacity: .5;}
+  100% {opacity: 1;}
+}
