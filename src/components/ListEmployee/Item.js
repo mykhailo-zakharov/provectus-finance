@@ -6,6 +6,11 @@ import {actions as employeeActions} from '../../ducks/employee'
 import {actions as commonActions} from '../../ducks/common'
 import {actions as financeDataActions} from '../../ducks/financeData'
 
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 
 class Item extends Component {
     constructor(props) {
@@ -35,12 +40,26 @@ class Item extends Component {
                 <td  className="employee-table-cell" >{item.department}</td>
                 <td  className="employee-table-cell" >{item.comment}</td>
                 <td  className="employee-table-cell" >{item.kved}</td>
-                <td  className="employee-table-cell"  onClick={() => this.props.delete(item.id)}>
-                    <svg viewBox="0 0 24 24"
+                <td  className="employee-table-cell">
+                    {/*<svg viewBox="0 0 24 24"
                          className="employee-table-btn-del"
                     >
                         <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_del" />
-                    </svg>
+                    </svg>*/}
+
+                    <IconMenu
+                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                    >
+                        <MenuItem primaryText="Импорт с Ecxel" />
+                        <MenuItem primaryText="Экспорт в Ecxel" />
+                        <MenuItem primaryText="Удалить"
+                              onClick={() => this.props.delete(item.id)}
+                        />
+                    </IconMenu>
+
+
                 </td>
             </tr>
         )

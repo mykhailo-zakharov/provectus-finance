@@ -6,13 +6,21 @@ export const types = {
     LOGIN_FAIL: "LOGIN_FAIL",
     IS_TABLE_TOGGLE: "IS_TABLE_TOGGLE",
     IS_TABLE_TRUE: "IS_TABLE_TRUE",
-    IS_TABLE_FALSE: "IS_TABLE_FALSE"
+    IS_TABLE_FALSE: "IS_TABLE_FALSE",
+    IS_PRELOADER_TRUE: "IS_PRELOADER_TRUE",
+    IS_PRELOADER_FALSE: "IS_PRELOADER_FALSE",
+    SET_MODAL: "SET_MODAL",
+    CLEAR_MODAL: "CLEAR_MODAL"
 }
 
 export const initialState = {
     isAuthenticated: false,
     login: "",
-    isTable: false
+    isTable: false,
+    isPreloader: false,
+    // isModal: false,
+    modalContent: null,
+    modalName: ""
 }
 
 export default (state = initialState, action) => {
@@ -42,6 +50,24 @@ export default (state = initialState, action) => {
         case types.IS_TABLE_FALSE:
             return { ...state, isTable: false}
 
+        case types.IS_PRELOADER_TRUE:
+            return { ...state, isPreloader: true}
+
+        case types.IS_PRELOADER_FALSE:
+            return { ...state, isPreloader: false}
+
+        case types.SET_MODAL:
+            return { ...state,
+                modalContent: action.payload.content,
+                modalName: action.payload.title
+            }
+
+        case types.CLEAR_MODAL:
+            return { ...state,
+                modalContent: null,
+                modalName: ""
+            }
+
         default:
             return state
     }
@@ -53,6 +79,10 @@ export const actions = {
     offTable: () => ({ type: types.IS_TABLE_FALSE}),
 
     toggleTable: () => ({ type: types.IS_TABLE_TOGGLE }),
+
+    onPreloader: () => ({ type: types.IS_PRELOADER_TRUE }),
+
+    offPreloader: () => ({ type: types.IS_PRELOADER_FALSE }),
 
     login: (login, pw)  => (dispatch, getState) => {
             dispatch({
@@ -71,6 +101,7 @@ export const actions = {
             }
 
     },
+
     logInStorage: (login) => (dispatch, getState) => {
         dispatch({
             type: types.LOGIN_STORAGE,
@@ -79,6 +110,19 @@ export const actions = {
             }
         })
     },
-    logout: () => ({ type: types.LOGOUT })
+
+    logout: () => ({ type: types.LOGOUT }),
+
+    setModal: (title, content) => (dispatch) => {
+        dispatch({
+            type: types.SET_MODAL,
+            payload: {
+                title,
+                content
+            }
+        })
+    },
+
+    clearModal: () => ({ type: types.CLEAR_MODAL })
 
 }

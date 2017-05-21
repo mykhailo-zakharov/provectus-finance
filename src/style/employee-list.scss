@@ -45,7 +45,7 @@
 }
 
 .employee-table-cell {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .mini {
@@ -75,9 +75,17 @@
   width: 2rem;
   float: right;
   fill: #000;
+  cursor: pointer;
   &:hover {
     fill: $main_color
   }
 }
-
-
+.employee-new-btn {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  fill: #000;
+  &:hover {
+    fill: $main_color;
+  }
+}

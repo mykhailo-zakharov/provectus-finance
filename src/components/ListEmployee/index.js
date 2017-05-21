@@ -3,8 +3,8 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
 import Item from './Item'
-
-import {deleteEmployeesController} from '../../api/employee'
+import NewEmployee from '../NewEmployee'
+import ModalDelete from './ModalDelete'
 
 import {actions as employeeActions} from '../../ducks/employee'
 import {actions as commonActions} from '../../ducks/common'
@@ -16,26 +16,17 @@ class Employee extends Component {
 
         props.getAllEmployees();
 
-        // this.state = {
-
-        // };
         this.deleteEmployee = this.deleteEmployee.bind(this);
         this.reopen = this.reopen.bind(this);
+        this.openModalNewEmployee = this.openModalNewEmployee.bind(this);
     }
 
     deleteEmployee(id) {
-        console.log(`delete: ${id}`);
+        this.props.setModal("Удаление пользователя", <ModalDelete id={id} />);
+    }
 
-        deleteEmployeesController(id)
-        // .then(res=>res.json())
-            .then(res => {
-                console.log(res);
-                return res
-            }).then(() => {
-            this.props.actionAmployees.getAllEmployees();
-        })
-            .catch((error) => console.log(error));
-
+    openModalNewEmployee(){
+        this.props.setModal("Добавление нового сотрудника", <NewEmployee/>)
     }
 
     reopen(){
@@ -61,7 +52,17 @@ class Employee extends Component {
                             <td className="employee-table-cell">отдел</td>
                             <td className="employee-table-cell">комментарий</td>
                             <td className="employee-table-cell">КВЕД</td>
-                            <td className="employee-table-cell"></td>
+                            <td className="employee-table-cell">
+                                <div className="employee-table-btn-del">
+                                    <svg viewBox="0 0 24 24"
+                                         className="employee-new-btn"
+                                         onClick={this.openModalNewEmployee}
+                                    >
+                                        <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_employee_add" />
+                                    </svg>
+
+                                </div>
+                            </td>
 
                             {this.props.isTable ?  (
                                             <svg viewBox="0 0 24 24"
@@ -98,12 +99,12 @@ const mapStateToProps = (state) => {
         employee: state.employee,
         isTable: state.common.isTable
     }
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
     ...bindActionCreators({
         ...commonActions,
         ...employeeActions
     }, dispatch)
-})
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Employee)

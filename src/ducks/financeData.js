@@ -1,3 +1,4 @@
+import {types as typesCommon} from './common'
 import {
     getQuarterController,
     addQuarterController,
@@ -40,9 +41,10 @@ export default (state = initialState, action) => {
 export const actions = {
 
     getQuarter:(id) => (dispatch, getState) => {
-        dispatch({
-            type: types.GET_FINANCE_DATA
-        });
+
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
+
+        dispatch({ type: types.GET_FINANCE_DATA });
 
         getQuarterController(id)
             .then(function (response) {
@@ -57,11 +59,18 @@ export const actions = {
                     data: data
                 });
 
-            }).catch((error) => console.log(error));
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+
+            }).catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+        });
 
     },
 
     addQuarter:(year, numb, id) => (dispatch) => {
+
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
 
         addQuarterController(year, numb, id)
             .then(function (response) {
@@ -75,28 +84,45 @@ export const actions = {
                     data: data
                 });
 
-            }).catch((error) => console.log(error))
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+
+            }).catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+            })
     },
 
     addTax:(data, idEmployee, idQuarter) => (dispatch) => {
+
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
 
         return addTaxController(data, idEmployee, idQuarter)
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
                 return data;
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+            })
     },
 
     getKurs:(date) => (dispatch) => {
 
+        dispatch({type: typesCommon.IS_PRELOADER_TRUE});
+
         return getKursController(date)
             .then(function (response) {
+                dispatch({type: typesCommon.IS_PRELOADER_FALSE});
                 return response.json();
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+                })
 
     }
 

@@ -24,15 +24,15 @@ class NewEmployee extends Component {
     }
 
     handleChange = () => {
-        console.log(
-            this.refs.firstName.input.value,
-            this.refs.secondName.input.value,
-            this.refs.lastName.input.value,
-            this.refs.email.input.value,
-            this.refs.department.input.value,
-            this.refs.comment.input.value,
-            this.refs.kved.input.value
-        );
+        // console.log(
+        //     this.refs.firstName.input.value,
+        //     this.refs.secondName.input.value,
+        //     this.refs.lastName.input.value,
+        //     this.refs.email.input.value,
+        //     this.refs.department.input.value,
+        //     this.refs.comment.input.value,
+        //     this.refs.kved.input.value
+        // );
         let firstName = this.refs.firstName.input.value,
             lastName = this.refs.lastName.input.value,
             secondName = this.refs.secondName.input.value,
@@ -43,11 +43,13 @@ class NewEmployee extends Component {
 
         let data = {firstName,secondName,lastName,email,department,comment};
 
+        //вкл прелоуд
+        this.props.onPreloader();
+
         createNewEmployee(data)
             .then(res=>res.json())
             .then(res => {
                 this.setState({snackbar: true});
-                console.log(res);
                 this.refs.firstName.input.value = '';
                 this.refs.secondName.input.value = '';
                 this.refs.lastName.input.value = '';
@@ -55,8 +57,22 @@ class NewEmployee extends Component {
                 this.refs.department.input.value = '';
                 this.refs.comment.input.value = '';
                 this.refs.kved.input.value = '';
+
+                return this.props.getAllEmployees();
             })
-            .catch((error)=>console.log(error));
+            // .then(() => {
+            //     //выкл прелоуд
+            //     this.props.offPreloader();
+            //     //закрыть модал окно
+            //     this.props.clearModal();
+            // })
+            .catch((error)=>{
+                console.log(error);
+                //выкл прелоуд
+                this.props.offPreloader();
+                //выкл модал  окно
+                this.props.clearModal();
+            });
 
     };
 

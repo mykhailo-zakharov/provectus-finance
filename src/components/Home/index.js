@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 
 import ListEmployee from '../ListEmployee'
 import FinanceData from '../FinanceData'
+import Preloader from '../PreLoader'
+import Modal from '../Modal'
 
 
 export default class Home extends Component {
   constructor(){
     super();
-    // this.state = {
-    //   isTable: false
-    // }
+
   }
 
 
@@ -20,6 +20,10 @@ export default class Home extends Component {
           <ListEmployee />
 
           <FinanceData />
+
+          <Preloader />
+
+          <Modal />
 
       </div>
     )

@@ -1,4 +1,6 @@
 import {getAllEmployeesController, deleteEmployeesController} from '../api/employee'
+import {types as typesCommon} from './common'
+
 
 export const types = {
     SAVE_LIST_EMPLOYEE: "SAVE_LIST_EMPLOYEE",
@@ -28,6 +30,8 @@ export const actions = {
 
     getAllEmployees:(params = {}) => (dispatch, getState) => {
 
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
+
         getAllEmployeesController(dispatch)
             .then(function (response) {
                 return response.json();
@@ -41,15 +45,22 @@ export const actions = {
                     data: message.content
                 });
 
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                dispatch({ type: typesCommon.CLEAR_MODAL});
+
+                return message;
 
             }).catch((error) => {
                 console.log(error);
                 alert("Ошибка подключиния к серверу!");
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
             });
 
     },
 
     deleteEmployees:(params = {}) => (dispatch, getState) => {
+
+        dispatch({type: typesCommon.IS_PRELOADER_TRUE});
 
         deleteEmployeesController(dispatch)
             .then(function (response) {
@@ -65,8 +76,14 @@ export const actions = {
                     type: types.DELETE_EMPLOYEE
                 });
 
+                dispatch({type: typesCommon.IS_PRELOADER_FALSE});
 
-            }).catch((error) => console.log(error))
+
+            }).catch((error) => {
+                dispatch({type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+            })
+
     },
 
     setActiveYmployee:(id) => (dispatch) => {
