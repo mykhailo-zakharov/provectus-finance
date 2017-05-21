@@ -254,7 +254,9 @@ a {
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  fill: #000; }
+  fill: #000;
+  margin-right: 2rem;
+  float: right; }
   .employee-new-btn:hover {
     fill: #00bcd4; }
 

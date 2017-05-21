@@ -53,15 +53,12 @@ class Employee extends Component {
                             <td className="employee-table-cell">комментарий</td>
                             <td className="employee-table-cell">КВЕД</td>
                             <td className="employee-table-cell">
-                                <div className="employee-table-btn-del">
-                                    <svg viewBox="0 0 24 24"
-                                         className="employee-new-btn"
-                                         onClick={this.openModalNewEmployee}
-                                    >
-                                        <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_employee_add" />
-                                    </svg>
-
-                                </div>
+                                <svg viewBox="0 0 24 24"
+                                     className="employee-new-btn"
+                                     onClick={this.openModalNewEmployee}
+                                >
+                                    <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_employee_add" />
+                                </svg>
                             </td>
 
                             {this.props.isTable ?  (

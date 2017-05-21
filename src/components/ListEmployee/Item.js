@@ -51,11 +51,15 @@ class Item extends Component {
                         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        style={{float: "right"}}
                     >
+                        <MenuItem primaryText="Выбрать"
+                                  onClick={ this.onSelected }
+                        />
                         <MenuItem primaryText="Импорт с Ecxel" />
                         <MenuItem primaryText="Экспорт в Ecxel" />
                         <MenuItem primaryText="Удалить"
-                              onClick={() => this.props.delete(item.id)}
+                                  onClick={() => this.props.delete(item.id)}
                         />
                     </IconMenu>
 

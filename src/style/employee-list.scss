@@ -85,6 +85,8 @@
   height: 2rem;
   cursor: pointer;
   fill: #000;
+  margin-right: 2rem;
+  float: right;
   &:hover {
     fill: $main_color;
   }
