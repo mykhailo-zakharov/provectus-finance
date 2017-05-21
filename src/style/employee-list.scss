@@ -36,6 +36,11 @@
     background-color: #ddd;
     border-top: 2px solid #fff;
     border-bottom: 1px solid #fff;
+    &>.employee-table-cell {
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+    }
   }
   &.active {
     font-weight: 500;
@@ -45,7 +50,8 @@
 }
 
 .employee-table-cell {
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
+  vertical-align: middle;
 }
 
 .mini {
@@ -53,7 +59,7 @@
     display: flex;
   }
   .employee-table-cell {
-
+    padding: 0.8rem 1rem;
     &:nth-child(n+5) {
       display: none;
     }
@@ -65,7 +71,7 @@
   width: 2rem;
   float: right;
   fill: #000;
-  margin-top: .9rem;
+  margin-top: .3rem;
   &:hover {
     fill: $main_color
   }
