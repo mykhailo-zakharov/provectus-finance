@@ -28,6 +28,7 @@
 .modal-content-text {
   padding: 2rem;
   font-weight: 500;
+  min-height: 5rem;
 }
 .modal-title {
   font-size: 1.5rem;
@@ -52,5 +53,16 @@
 }
 .modal-btn {
   margin-left: 1rem;
-
+  background-color: #ddd;
+  color: #fff;
+  padding: .3rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition-duration: .3s;
+  &:last-child {
+    background-color: $main_color;
+  }
+  &:hover {
+    background-color: #000;
+  }
 }

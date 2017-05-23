@@ -26,6 +26,7 @@ class CreateTax extends Component {
 
 
         this.handleSetDate = this.handleSetDate.bind(this);
+        // this.handleSetDateHand = this.handleSetDateHand.bind(this);
         this.saveTax = this.saveTax.bind(this);
     }
 
@@ -47,6 +48,10 @@ class CreateTax extends Component {
                 });
             })
     }
+
+    // handleSetDateHand(e){
+    //     console.log(e.target.value);
+    // }
 
     saveTax(){
         let self = this.state;
@@ -101,26 +106,33 @@ class CreateTax extends Component {
                 </td>
                 <td>
                     {this.state.name.length > 0 &&
-                        <DatePicker hintText="Конечная дата"
-                                onChange={::this.handleSetDate}
-                                autoOk="true"
-                                cancelLabel="Отмена"
-                                maxDate={new Date()}
-                                style={{
-                                    width: "120px",
-                                    display: "inline-block",
-                                    overflow: "hidden",
-                                    verticalAlign: "middle",
-                                    marginLeft: "2rem",
-                                    textAlign: "right"
-                                }}
-                                locale="ru"
-                                formatDate={new DateTimeFormat('ru', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric',
-                                }).format}
-                        />
+                        <div>
+                            {/*<input type="text"
+                                   placeholder="ДД/ММ/ГГ"
+                                   onChange={this.handleSetDateHand}
+                            />*/}
+
+                            <DatePicker hintText="дата"
+                                    onChange={this.handleSetDate}
+                                    autoOk="true"
+                                    cancelLabel="Отмена"
+                                    maxDate={new Date()}
+                                    style={{
+                                        width: "120px",
+                                        display: "inline-block",
+                                        overflow: "hidden",
+                                        verticalAlign: "middle",
+                                        marginLeft: "2rem",
+                                        textAlign: "right"
+                                    }}
+                                    locale="ru"
+                                    formatDate={new DateTimeFormat('ru', {
+                                        day: 'numeric',
+                                        month: 'long',
+                                        year: 'numeric',
+                                    }).format}
+                            />
+                        </div>
                     }
                 </td>
                 <td>
