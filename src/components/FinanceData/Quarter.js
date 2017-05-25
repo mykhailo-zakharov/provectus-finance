@@ -44,9 +44,16 @@ class Quarter extends Component {
                     </tr>
 
                     {item.taxRecords && item.taxRecords.length > 0 &&
-                        item.taxRecords.map((item)=> <Tax item={item} /> )}
+                        item.taxRecords.map((item)=> <Tax item={item}
+                                                          taxEdite={this.props.taxEdite}
+                                                          id={item.id}
+                                                          setTaxEdite={this.props.setTaxEdite}
+                        /> )}
 
-                    <CreateTax idQuarter={item.id} index={this.props.index} />
+                    <CreateTax idQuarter={item.id}
+                               setTaxEdite={this.props.setTaxEdite}
+                               taxEdite={this.props.taxEdite}
+                    />
 
                 </table>
 

@@ -16,11 +16,13 @@ class FinanceData extends Component {
     constructor(props){
         super(props);
         this.state = {
+            taxEdite: null,
             year: 2017,
             quarter: 1
         };
 
         this.addQuarter = this.addQuarter.bind(this);
+        this.setTaxEdite = this.setTaxEdite.bind(this);
     }
 
     addQuarter(){
@@ -33,6 +35,11 @@ class FinanceData extends Component {
             year: 2017,
             quarter: 1
         });
+    }
+
+    setTaxEdite(value){
+        console.log(value);
+        this.setState({ taxEdite: value});
     }
 
 
@@ -94,6 +101,8 @@ class FinanceData extends Component {
                                     <Quarter key={item.id}
                                              index={index}
                                              item={item}
+                                             taxEdite={this.state.taxEdite}
+                                             setTaxEdite={this.setTaxEdite}
                                     />
                                 )
                             })

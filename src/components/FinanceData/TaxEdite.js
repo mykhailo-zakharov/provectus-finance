@@ -11,30 +11,33 @@ import {actions as financeDataActions} from '../../ducks/financeData'
 import Date from './Date'
 
 
-class CreateTax extends Component {
+class TaxEdite extends Component {
     constructor(props) {
         super(props);
+        let name = this.props.item.counterpartyName,
+            date = this.props.item.receivingDate,
+            usd = this.props.item.usdRevenue,
+            grn = this.props.item.uahRevenue,
+            kurs = this.props.item.exchRateUsdUahNBUatReceivingDate;
 
         this.state = {
-            isEdite: false,
-            name: "",
-            date: null,
-            usd: 0,
-            grn: 0,
-            kurs: null,
+            name,
+            date,
+            usd,
+            grn,
+            kurs,
         };
 
 
         this.getKurs = this.getKurs.bind(this);
         this.saveTax = this.saveTax.bind(this);
-        this.onEdite = this.onEdite.bind(this);
     }
 
     getKurs( date, dateSec ) {
 
         this.props.getKurs( date )
             .then((data) => {
-            console.log(date, dateSec);
+                console.log(date, dateSec);
                 this.setState({
                     date: dateSec,
                     kurs: data,
@@ -70,22 +73,7 @@ class CreateTax extends Component {
         });
     }
 
-    onEdite(){
-        this.setState({isEdite: true});
-        this.props.setTaxEdite(null);
-    }
-
     render() {
-
-        if ( !(this.state.isEdite && !this.props.taxEdite) ) {
-            return <svg viewBox="0 0 24 24"
-                        className="tax-btn-add"
-                        onClick={ this.onEdite }
-                >
-                    <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_note_add" />
-                </svg>
-        }
-
 
         let DateTimeFormat = global.Intl.DateTimeFormat;
 
@@ -97,40 +85,33 @@ class CreateTax extends Component {
                            placeholder="Введите название"
                            value={this.state.name}
                            onChange={(e) => this.setState({name: e.target.value})}
-                           autoFocus={true}
                     />
                 </td>
                 <td>
-                    {this.state.name.length > 0 &&
-                        <Date getKurs={ this.getKurs } />
-                    }
+                    <Date getKurs={ this.getKurs } />
                 </td>
                 <td>
-                    {this.state.kurs &&
-                        <input type="number"
-                               className="tax-edit-input-numb"
-                               value={this.state.usd}
-                               onChange={(e) => this.setState({usd: +e.target.value})}
-                        />
-                    }
+                    <input type="number"
+                           className="tax-edit-input-numb"
+                           value={this.state.usd}
+                           onChange={(e) => this.setState({usd: +e.target.value})}
+                    />
                 </td>
                 <td>
-                    {this.state.kurs &&
-                        <input type="number"
-                               className="tax-edit-input-numb"
-                               value={this.state.grn}
-                               onChange={(e) => this.setState({grn: +e.target.value})}
-                        />
-                    }
+                    <input type="number"
+                           className="tax-edit-input-numb"
+                           value={this.state.grn}
+                           onChange={(e) => this.setState({grn: +e.target.value})}
+                    />
                 </td>
-                <td>{this.state.kurs && (this.state.kurs).toFixed(2) }</td>
-                <td>{this.state.kurs && (this.state.usd * this.state.kurs).toFixed(2) }</td>
-                <td>{this.state.kurs && (this.state.grn + this.state.usd * this.state.kurs).toFixed(2) }</td>
-                <td>{this.state.kurs && ((this.state.grn + this.state.usd * this.state.kurs) * 0.05).toFixed(2) }</td>
+                <td>{ (this.state.kurs).toFixed(2) }</td>
+                <td>{ (this.state.usd * this.state.kurs).toFixed(2) }</td>
+                <td>{ (this.state.grn + this.state.usd * this.state.kurs).toFixed(2) }</td>
+                <td>{ ((this.state.grn + this.state.usd * this.state.kurs) * 0.05).toFixed(2) }</td>
                 {this.state.kurs &&
-                    <button className="tax-btn tax-btn-save"
-                            onClick={this.saveTax}
-                    >Сохранить</button>
+                <button className="tax-btn tax-btn-save"
+                        onClick={this.saveTax}
+                >Сохранить изменения</button>
                 }
             </tr>
         )
@@ -152,4 +133,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTax)
+export default connect(mapStateToProps, mapDispatchToProps)(TaxEdite)

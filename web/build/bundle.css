@@ -354,6 +354,16 @@ a {
   font-family: "Roboto";
   font-weight: 300; }
 
+.input-date {
+  width: 9rem;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 1.8rem;
+  background: none;
+  text-align: center; }
+  .input-date.error {
+    border-color: red; }
+
 .preload {
   position: fixed;
   top: 0;
@@ -518,7 +528,8 @@ a {
 
 .modal-content-text {
   padding: 2rem;
-  font-weight: 500; }
+  font-weight: 500;
+  min-height: 5rem; }
 
 .modal-title {
   font-size: 1.5rem; }
@@ -540,6 +551,16 @@ a {
   text-align: right; }
 
 .modal-btn {
-  margin-left: 1rem; }
+  margin-left: 1rem;
+  background-color: #ddd;
+  color: #fff;
+  padding: .3rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition-duration: .3s; }
+  .modal-btn:last-child {
+    background-color: #00bcd4; }
+  .modal-btn:hover {
+    background-color: #000; }
 
 /*# sourceMappingURL=bundle.css.map*/

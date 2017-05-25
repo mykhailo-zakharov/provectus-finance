@@ -50,3 +50,17 @@ export function getKursController(date) {
         url = URL + "exchangeRatesUah/USD/" + date;
     return fetch(url, options);
 }
+
+
+
+
+// /taxRecord
+//
+// /{employeeId}/{quarterId}, method = POST
+// JSON taxRecord, {employeeId} = employeeId, {quarterId} = quarterId
+//
+//     /{employeeId}/{quarterId}, method = PUT
+// JSON taxRecord, {employeeId} = employeeId, {quarterId} = quarterId
+//
+//     /{employeeId}/{quarterId}/{taxRecordId}, method = DELETE
+// {employeeId} = employeeId, {quarterId} = quarterId, {taxRecordId} = taxRecordId

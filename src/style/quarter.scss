@@ -89,3 +89,14 @@
   font-weight: 300;
 }
 
+.input-date {
+  width: 9rem;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 1.8rem;
+  background: none;
+  text-align: center;
+  &.error {
+    border-color: red;
+  }
+}
