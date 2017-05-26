@@ -6,9 +6,12 @@ import {actions as employeeActions} from '../../ducks/employee'
 import {actions as commonActions} from '../../ducks/common'
 import {actions as financeDataActions} from '../../ducks/financeData'
 
-// import getKursController from '../../api/financeData'
-
 import Date from './Date'
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 
 class TaxEdite extends Component {
@@ -16,9 +19,15 @@ class TaxEdite extends Component {
         super(props);
         let name = this.props.item.counterpartyName,
             date = this.props.item.receivingDate,
-            usd = this.props.item.usdRevenue,
-            grn = this.props.item.uahRevenue,
-            kurs = this.props.item.exchRateUsdUahNBUatReceivingDate;
+            usd = +this.props.item.usdRevenue,
+            grn = +this.props.item.uahRevenue,
+            kurs = +this.props.item.exchRateUsdUahNBUatReceivingDate;
+
+        console.log(name,
+            date,
+            usd,
+            grn,
+            kurs);
 
         this.state = {
             name,
@@ -30,7 +39,7 @@ class TaxEdite extends Component {
 
 
         this.getKurs = this.getKurs.bind(this);
-        this.saveTax = this.saveTax.bind(this);
+        this.editeTax = this.editeTax.bind(this);
     }
 
     getKurs( date, dateSec ) {
@@ -46,21 +55,28 @@ class TaxEdite extends Component {
             })
     }
 
-    saveTax(){
-        let self = this.state;
-        console.log(self.name, self.date, self.usd, self.grn, self.kurs);
+    editeTax(){
+        let self = this.state,
+            employeeId = this.props.employee.activeEmployee,
+            quarterId = this.props.quarterid,
+            taxRecordId = this.props.item.id;
+
         let data = {
+            "id": taxRecordId,
             "counterpartyName": self.name,
             "receivingDate": self.date,
             "uahRevenue": self.grn,
             "usdRevenue": self.usd,
             "exchRateUsdUahNBUatReceivingDate": self.kurs
         };
-        let idEmployee = this.props.employee.activeEmployee,
-            idQuarter = this.props.idQuarter;
-        this.props.addTax(data, idEmployee, idQuarter)
-            .then(()=>{
-                this.props.getQuarter(idEmployee);
+
+        console.log(data);
+
+        this.props.editeTax(employeeId, quarterId, data)
+            .then((e)=>{
+                this.props.getQuarter(employeeId);
+                this.props.setTaxEdite(null);
+                console.log("edite");
             });
 
         this.setState({
@@ -69,7 +85,7 @@ class TaxEdite extends Component {
             date: null,
             usd: 0,
             grn: 0,
-            kurs: null,
+            kurs: 0,
         });
     }
 
@@ -88,7 +104,9 @@ class TaxEdite extends Component {
                     />
                 </td>
                 <td>
-                    <Date getKurs={ this.getKurs } />
+                    <Date getKurs={ this.getKurs } 
+                          value={this.state.date}
+                    />
                 </td>
                 <td>
                     <input type="number"
@@ -108,11 +126,24 @@ class TaxEdite extends Component {
                 <td>{ (this.state.usd * this.state.kurs).toFixed(2) }</td>
                 <td>{ (this.state.grn + this.state.usd * this.state.kurs).toFixed(2) }</td>
                 <td>{ ((this.state.grn + this.state.usd * this.state.kurs) * 0.05).toFixed(2) }</td>
-                {this.state.kurs &&
-                <button className="tax-btn tax-btn-save"
-                        onClick={this.saveTax}
-                >Сохранить изменения</button>
-                }
+                <td>
+                    <IconMenu
+                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        style={{float: "right"}}
+                    >
+                        <MenuItem primaryText="Сохранить"
+                                  onClick={this.editeTax}
+                        />
+                        <MenuItem primaryText="Отмена"
+                                  onClick={ ()=>this.props.setTaxEdite( null ) }
+                        />
+                        <MenuItem primaryText="Удалить"
+                                  //onClick={() => this.props.delete(item.id)}
+                       />
+                    </IconMenu>
+                </td>
             </tr>
         )
     }

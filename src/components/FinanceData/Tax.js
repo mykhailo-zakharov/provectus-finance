@@ -8,6 +8,11 @@ import {actions as financeDataActions} from '../../ducks/financeData'
 
 import TaxEdite from './TaxEdite'
 
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+
 
 class Tax extends Component {
     constructor(props) {
@@ -29,11 +34,11 @@ class Tax extends Component {
         let sumIds = this.props.id + item.id;
 
         if( this.props.taxEdite == sumIds ){
-            return <TaxEdite item={this.props.item} />
+            return <TaxEdite item={this.props.item} quarterid={this.props.quarterid} setTaxEdite={this.props.setTaxEdite} />
         }
 
         return(
-            <tr onDoubleClick={()=>this.props.setTaxEdite(this.props.id + item.id)}>
+            <tr>
                 <td>{item.counterpartyName}</td>
                 <td>{date}</td>
                 <td>{item.usdRevenue}</td>
@@ -42,7 +47,21 @@ class Tax extends Component {
                 <td>{ ( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue ).toFixed(2) }</td>
                 <td>{ ( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ).toFixed(2) }</td>
                 <td>{ ( ( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ) * 0.05 ).toFixed(2) }</td>
-                {/*<td>menu</td>*/}
+                <td>
+                    <IconMenu
+                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                        style={{float: "right"}}
+                    >
+                        <MenuItem primaryText="Изменить"
+                                  onClick={ ()=>this.props.setTaxEdite(this.props.id + item.id) }
+                        />
+                        <MenuItem primaryText="Удалить"
+                                  // onClick={() => this.props.delete(item.id)}
+                        />
+                    </IconMenu>
+                </td>
             </tr>
         )
     }

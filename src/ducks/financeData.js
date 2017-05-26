@@ -3,7 +3,9 @@ import {
     getQuarterController,
     addQuarterController,
     getKursController,
-    addTaxController
+    addTaxController,
+    delTaxController,
+    editeTaxController
 } from '../api/financeData'
 
 export const types = {
@@ -103,6 +105,42 @@ export const actions = {
             .then(function (data) {
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
                 return data;
+            })
+            .catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+            })
+    },
+
+    editeTax:(employeeId, quarterId, data) => (dispatch) => {
+
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
+
+        return editeTaxController(employeeId, quarterId, data)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                // return data;
+            })
+            .catch((error) => {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                console.log(error)
+            })
+    },
+
+    deleteTax:(employeeId, quarterId, taxRecordId, data) => (dispatch) => {
+
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
+
+        return delTaxController(employeeId, quarterId, taxRecordId)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
+                // return data;
             })
             .catch((error) => {
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});

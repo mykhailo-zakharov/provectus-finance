@@ -32,6 +32,7 @@ class Quarter extends Component {
                         <td />
                         <td colSpan="6">Валюта Поступления</td>
                         <td>Единый Налог</td>
+                        <td></td>
                     </tr>
                     <tr><td>Наименование Контрагента</td>
                         <td>Дата поступения денежных средств</td>
@@ -41,12 +42,13 @@ class Quarter extends Component {
                         <td>Эквивалент в гривне по курсу НБУ к налогообложению</td>
                         <td>Сумма к налогообложению</td>
                         <td>Начислено</td>
+                        <td></td>
                     </tr>
 
                     {item.taxRecords && item.taxRecords.length > 0 &&
-                        item.taxRecords.map((item)=> <Tax item={item}
+                        item.taxRecords.map((i)=> <Tax item={i}
                                                           taxEdite={this.props.taxEdite}
-                                                          id={item.id}
+                                                          quarterid={item.id}
                                                           setTaxEdite={this.props.setTaxEdite}
                         /> )}
 

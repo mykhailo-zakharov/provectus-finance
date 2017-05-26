@@ -8,7 +8,7 @@ class Date extends Component {
         super(props);
 
         this.state = {
-            dateInput: "",
+            dateInput: this.props.value && this.dateToString( this.props.value ) || "",
             isValidDateInput: true
         };
 
@@ -16,6 +16,20 @@ class Date extends Component {
         this.handleSetDate = this.handleSetDate.bind(this);
         this.handleSetDateHand = this.handleSetDateHand.bind(this);
         this.getKurs = this.getKurs.bind(this);
+        this.dateToString = this.dateToString.bind(this);
+    }
+
+    dateToString(date){
+        let d = new window.Date(date);
+        console.log(date);
+        console.log(d);
+
+        let curr_day = d.getDate();
+        curr_day = curr_day < 10 ? ("0" + curr_day) : curr_day;
+        let curr_month = d.getMonth() + 1;
+        curr_month = curr_month < 10 ? ("0" + curr_month) : curr_month;
+        let dateForImput = "" + curr_day + "/" + curr_month + "/" + String(d.getFullYear()).slice(2,4);
+        return dateForImput;
     }
 
     handleSetDate(event, date) {

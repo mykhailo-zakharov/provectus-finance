@@ -41,11 +41,6 @@ class Item extends Component {
                 <td  className="employee-table-cell" >{item.comment}</td>
                 <td  className="employee-table-cell" >{item.kved}</td>
                 <td  className="employee-table-cell">
-                    {/*<svg viewBox="0 0 24 24"
-                         className="employee-table-btn-del"
-                    >
-                        <use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#icon_del" />
-                    </svg>*/}
 
                     <IconMenu
                         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -62,7 +57,6 @@ class Item extends Component {
                                   onClick={() => this.props.delete(item.id)}
                         />
                     </IconMenu>
-
 
                 </td>
             </tr>

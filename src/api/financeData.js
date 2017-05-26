@@ -45,13 +45,36 @@ export function addTaxController(data, idEmployee, idQuarter) {
     return fetch(url, options);
 }
 
+export function editeTaxController(employeeId, quarterId, data) {
+
+    let options = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+                //'Token': getToken() || ''
+            },
+            body: JSON.stringify(data) },
+        url = URL + "taxRecord/" + employeeId + "/" + quarterId;
+    return fetch(url, options);
+}
+
 export function getKursController(date) {
     let options = { method: 'GET' },
         url = URL + "exchangeRatesUah/USD/" + date;
     return fetch(url, options);
 }
 
+export function delTaxController(employeeId, quarterId, taxRecordId) {
+    let options = {
+            method: 'DELETE',
+        },
+        // body: JSON.stringify(newData) },
+        url = URL + employeeId + "/" + quarterId + "/" + taxRecordId;
+    console.log(url);
 
+    return fetch(url, options);
+}
 
 
 // /taxRecord
