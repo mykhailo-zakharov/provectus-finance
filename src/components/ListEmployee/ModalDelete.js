@@ -52,7 +52,7 @@ class Modal extends Component {
 
         return (
             <div>
-                <div className="modal-content-text">Вы уверны, что хотите удалить пользователя?</div>
+                <div className="modal-content-text">Вы уверны, что хотите удалить пользователя "{this.props.name}"?</div>
                 <div className="modal-footer">
                     <button className="modal-btn"
                             onClick={this.close}

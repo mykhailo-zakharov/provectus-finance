@@ -21,8 +21,8 @@ class Employee extends Component {
         this.openModalNewEmployee = this.openModalNewEmployee.bind(this);
     }
 
-    deleteEmployee(id) {
-        this.props.setModal("Удаление пользователя", <ModalDelete id={id} />);
+    deleteEmployee(id, name) {
+        this.props.setModal("Удаление пользователя", <ModalDelete id={id} name={name} />);
     }
 
     openModalNewEmployee(){

@@ -66,7 +66,7 @@ var main =
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f5d28870d40b4a975dd6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f118fb1259d4d4388023"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -24506,7 +24506,8 @@ var main =
 	            var _props = this.props,
 	                item = _props.item,
 	                index = _props.index,
-	                activeEmployee = _props.activeEmployee;
+	                activeEmployee = _props.activeEmployee,
+	                name = item.lastName + " " + item.firstName + " " + item.secondName;
 
 	            return _react2.default.createElement(
 	                'tr',
@@ -24575,7 +24576,7 @@ var main =
 	                        _react2.default.createElement(_MenuItem2.default, { primaryText: '\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0432 Ecxel' }),
 	                        _react2.default.createElement(_MenuItem2.default, { primaryText: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
 	                            onClick: function onClick() {
-	                                return _this2.props.delete(item.id);
+	                                return _this2.props.delete(item.id, name);
 	                            }
 	                        })
 	                    )
@@ -24711,7 +24712,9 @@ var main =
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'modal-content-text' },
-	                    '\u0412\u044B \u0443\u0432\u0435\u0440\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F?'
+	                    '\u0412\u044B \u0443\u0432\u0435\u0440\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F "',
+	                    this.props.name,
+	                    '"?'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -24828,8 +24831,8 @@ var main =
 
 	    (0, _createClass3.default)(Employee, [{
 	        key: 'deleteEmployee',
-	        value: function deleteEmployee(id) {
-	            this.props.setModal("Удаление пользователя", _react2.default.createElement(_ModalDelete2.default, { id: id }));
+	        value: function deleteEmployee(id, name) {
+	            this.props.setModal("Удаление пользователя", _react2.default.createElement(_ModalDelete2.default, { id: id, name: name }));
 	        }
 	    }, {
 	        key: 'openModalNewEmployee',

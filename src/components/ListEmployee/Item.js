@@ -27,7 +27,8 @@ class Item extends Component {
     }
 
     render(){
-        let {item, index,activeEmployee} = this.props;
+        let {item, index,activeEmployee} = this.props,
+            name = item.lastName + " " + item.firstName + " " + item.secondName;
         return(
             <tr className={"employee-table-row" + (activeEmployee == item.id ? " active" : "")}
                 onDoubleClick={this.onSelected}
@@ -54,7 +55,7 @@ class Item extends Component {
                         <MenuItem primaryText="Импорт с Ecxel" />
                         <MenuItem primaryText="Экспорт в Ecxel" />
                         <MenuItem primaryText="Удалить"
-                                  onClick={() => this.props.delete(item.id)}
+                                  onClick={() => this.props.delete(item.id, name)}
                         />
                     </IconMenu>
 
