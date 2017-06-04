@@ -128,7 +128,7 @@ class TaxEdite extends Component {
                 <td>{ ((this.state.grn + this.state.usd * this.state.kurs) * 0.05).toFixed(2) }</td>
                 <td>
                     <IconMenu
-                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        iconButtonElement={<IconButton style={{padding: "0", height: "2.5rem", width: "4rem"}}><MoreVertIcon /></IconButton>}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
                         style={{float: "right"}}

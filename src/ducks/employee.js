@@ -9,7 +9,7 @@ export const types = {
 }
 
 export const initialState = {
-    activeEmployee: 1
+    activeEmployee: null
 }
 
 export default (state = initialState, action) => {

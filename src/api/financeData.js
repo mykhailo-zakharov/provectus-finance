@@ -70,8 +70,8 @@ export function delTaxController(employeeId, quarterId, taxRecordId) {
             method: 'DELETE',
         },
         // body: JSON.stringify(newData) },
-        url = URL + employeeId + "/" + quarterId + "/" + taxRecordId;
-    console.log(url);
+        url = URL + "taxRecord/" + employeeId + "/" + quarterId + "/" + taxRecordId;
+    console.log("delete", url);
 
     return fetch(url, options);
 }

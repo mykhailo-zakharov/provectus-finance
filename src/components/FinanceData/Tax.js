@@ -7,6 +7,7 @@ import {actions as commonActions} from '../../ducks/common'
 import {actions as financeDataActions} from '../../ducks/financeData'
 
 import TaxEdite from './TaxEdite'
+import ModalDelete from './ModalDelete'
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -23,18 +24,29 @@ class Tax extends Component {
         // };
 
 
-        // this.onSelected = this.onSelected.bind(this);
+        this.delete = this.delete.bind(this);
+    }
+
+    delete(){
+        this.props.setModal("Удаление записи",
+            <ModalDelete quarter={this.props.quarterid}
+                         taxRecord={this.props.item.id}
+                         nameTaxRecord={this.props.item.counterpartyName} />);
+
+        // this.props.deleteTax(this.props.employee.activeEmployee, this.props.quarterid, this.props.item.id);
+
     }
 
 
     render(){
         let item = this.props.item,
-            date = new Date(item.receivingDate);
+            date = new Date(item.receivingDate),
+            quarterid = quarterid;
         date = date > 0 ? (date.toDateString()) : "-";
         let sumIds = this.props.id + item.id;
 
         if( this.props.taxEdite == sumIds ){
-            return <TaxEdite item={this.props.item} quarterid={this.props.quarterid} setTaxEdite={this.props.setTaxEdite} />
+            return <TaxEdite item={this.props.item} quarterid={quarterid} setTaxEdite={this.props.setTaxEdite} />
         }
 
         return(
@@ -49,7 +61,7 @@ class Tax extends Component {
                 <td>{ ( ( item.exchRateUsdUahNBUatReceivingDate * item.usdRevenue + item.uahRevenue ) * 0.05 ).toFixed(2) }</td>
                 <td>
                     <IconMenu
-                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        iconButtonElement={<IconButton style={{padding: "0", height: "2.5rem", width: "4rem"}}><MoreVertIcon /></IconButton>}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
                         style={{float: "right"}}
@@ -58,7 +70,7 @@ class Tax extends Component {
                                   onClick={ ()=>this.props.setTaxEdite(this.props.id + item.id) }
                         />
                         <MenuItem primaryText="Удалить"
-                                  // onClick={() => this.props.delete(item.id)}
+                                  onClick={ this.delete }
                         />
                     </IconMenu>
                 </td>

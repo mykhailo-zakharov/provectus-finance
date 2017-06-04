@@ -130,7 +130,7 @@ export const actions = {
             })
     },
 
-    deleteTax:(employeeId, quarterId, taxRecordId, data) => (dispatch) => {
+    deleteTax:(employeeId, quarterId, taxRecordId) => (dispatch) => {
 
         dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
 
