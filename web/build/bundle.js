@@ -66,7 +66,7 @@ var main =
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f118fb1259d4d4388023"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a60ab9cb2728f74d4ce9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -2721,7 +2721,6 @@ var main =
 	            (0, _financeData.getQuarterController)(id).then(function (response) {
 	                return response.json();
 	            }).then(function (data) {
-
 	                // console.log(data);
 
 	                dispatch({
@@ -2742,17 +2741,15 @@ var main =
 
 	            dispatch({ type: _common.types.IS_PRELOADER_TRUE });
 
-	            (0, _financeData.addQuarterController)(year, numb, id).then(function (response) {
+	            return (0, _financeData.addQuarterController)(year, numb, id).then(function (response) {
 	                return response.json();
 	            }).then(function (data) {
-	                console.log(data);
-
-	                dispatch({
-	                    type: types.ADD_QUATER,
-	                    data: data
-	                });
-
+	                // dispatch({
+	                //     type: types.ADD_QUATER,
+	                //     data: data
+	                // });
 	                dispatch({ type: _common.types.IS_PRELOADER_FALSE });
+	                return id;
 	            }).catch(function (error) {
 	                dispatch({ type: _common.types.IS_PRELOADER_FALSE });
 	                console.log(error);
@@ -24209,8 +24206,8 @@ var main =
 
 	        _this.state = {
 	            taxEdite: null,
-	            year: 2017,
-	            quarter: 1
+	            year: _this.currentDate("year"),
+	            quarter: _this.currentDate("quarter")
 	        };
 
 	        _this.addQuarter = _this.addQuarter.bind(_this);
@@ -24219,16 +24216,32 @@ var main =
 	    }
 
 	    (0, _createClass3.default)(FinanceData, [{
+	        key: 'currentDate',
+	        value: function currentDate(out) {
+	            var d = new Date();
+	            if (out == "year") {
+	                return d.getFullYear();
+	            } else if (out == "quarter") {
+	                return Math.ceil((d.getMonth() + 1) / 3);
+	            }
+	        }
+	    }, {
 	        key: 'addQuarter',
 	        value: function addQuarter() {
 	            var year = this.state.year,
 	                numb = this.state.quarter,
-	                id = this.props.employees.activeEmployee;
-	            console.log(year, numb);
-	            this.props.addQuarter(year, numb, id);
+	                id = this.props.employees.activeEmployee,
+	                self = this;
+
+	            this.props.addQuarter(year, numb, id).then(function (id) {
+	                self.props.getQuarter(id);
+	            }).catch(function (error) {
+	                console.log(error);
+	            });
+
 	            this.setState({
-	                year: 2017,
-	                quarter: 1
+	                year: this.currentDate("year"),
+	                quarter: this.currentDate("quarter")
 	            });
 	        }
 	    }, {
@@ -24245,7 +24258,7 @@ var main =
 	            if (!this.props.isTable) {
 	                return null;
 	            }
-	            var nowYear = 2017;
+	            var nowYear = this.currentDate("year");
 	            var listYear = [];
 	            for (var i = nowYear; i > 2000; i--) {
 	                listYear.push(i);

@@ -17,23 +17,40 @@ class FinanceData extends Component {
         super(props);
         this.state = {
             taxEdite: null,
-            year: 2017,
-            quarter: 1
-        };
+            year: this.currentDate("year"),
+            quarter: this.currentDate("quarter")
+    };
 
         this.addQuarter = this.addQuarter.bind(this);
         this.setTaxEdite = this.setTaxEdite.bind(this);
     }
 
+    currentDate(out){
+        let d = new Date();
+        if(out == "year"){
+            return d.getFullYear();
+        } else if(out == "quarter") {
+            return Math.ceil( ( d.getMonth() + 1) / 3 );
+        }
+    }
+
     addQuarter(){
         let year = this.state.year,
             numb = this.state.quarter,
-            id = this.props.employees.activeEmployee;
-        console.log(year, numb);
-        this.props.addQuarter(year, numb, id);
+            id = this.props.employees.activeEmployee,
+            self = this;
+
+        this.props.addQuarter(year, numb, id)
+            .then(function(id){
+                self.props.getQuarter(id);
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+
         this.setState({
-            year: 2017,
-            quarter: 1
+            year: this.currentDate("year"),
+            quarter: this.currentDate("quarter")
         });
     }
 
@@ -47,7 +64,7 @@ class FinanceData extends Component {
         if(!this.props.isTable){
             return null;
         }
-        let nowYear = 2017;
+        let nowYear = this.currentDate("year");
         let listYear = [];
         for(let i = nowYear; i > 2000; i--){
             listYear.push(i)

@@ -53,7 +53,6 @@ export const actions = {
                 return response.json();
             })
             .then(function (data) {
-
                 // console.log(data);
 
                 dispatch({
@@ -74,20 +73,17 @@ export const actions = {
 
         dispatch({ type: typesCommon.IS_PRELOADER_TRUE});
 
-        addQuarterController(year, numb, id)
+        return addQuarterController(year, numb, id)
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-
-                dispatch({
-                    type: types.ADD_QUATER,
-                    data: data
-                });
-
+                // dispatch({
+                //     type: types.ADD_QUATER,
+                //     data: data
+                // });
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
-
+                return id
             }).catch((error) => {
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
                 console.log(error)
@@ -161,7 +157,6 @@ export const actions = {
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
                 console.log(error)
                 })
-
     }
 
 
