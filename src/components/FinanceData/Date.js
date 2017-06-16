@@ -128,7 +128,7 @@ class Date extends Component {
                                 verticalAlign: "middle",
                                 marginLeft: "2rem",
                                 textAlign: "right",
-                                background: "url('img/date_range.png')",
+                                background: "url('img/date_range1.png')",
                                 backgroundSize: "contain",
                                 cursor: "pointer",
                                 float: "right"

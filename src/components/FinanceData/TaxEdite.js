@@ -71,6 +71,7 @@ class TaxEdite extends Component {
         };
 
         console.log(data);
+        console.log("quarterId", quarterId);
 
         this.props.editeTax(employeeId, quarterId, data)
             .then((e)=>{
@@ -140,7 +141,7 @@ class TaxEdite extends Component {
                                   onClick={ ()=>this.props.setTaxEdite( null ) }
                         />
                         <MenuItem primaryText="Удалить"
-                                  //onClick={() => this.props.delete(item.id)}
+                                  onClick={() => this.props.delete(item.id)}
                        />
                     </IconMenu>
                 </td>

@@ -40,13 +40,12 @@ class Tax extends Component {
 
     render(){
         let item = this.props.item,
-            date = new Date(item.receivingDate),
-            quarterid = quarterid;
+            date = new Date(item.receivingDate);
         date = date > 0 ? (date.toDateString()) : "-";
         let sumIds = this.props.id + item.id;
 
         if( this.props.taxEdite == sumIds ){
-            return <TaxEdite item={this.props.item} quarterid={quarterid} setTaxEdite={this.props.setTaxEdite} />
+            return <TaxEdite item={this.props.item} quarterid={this.props.quarterid} setTaxEdite={this.props.setTaxEdite} />
         }
 
         return(
