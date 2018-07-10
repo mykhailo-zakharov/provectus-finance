@@ -78,12 +78,11 @@ export function delTaxController(employeeId, quarterId, taxRecordId) {
     return fetch(url, options);
 }
 
-export const upload = (formData) => {    
-  const data = getFormData(formData); 
-  const userId = getUserId();       
+export const upload = (formData, employeeId) => { 
+  const data = getFormData(formData);         
     return axios({
         method: 'post',
-        url: `${URL}import/convertTaxReport/${userId}`,
+        url: `${URL}import/convertTaxReport/${employeeId}`,
         data,
         config: { headers: {'Content-Type': 'multipart/form-data' }}
     }); 

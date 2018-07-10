@@ -61,12 +61,13 @@ class FinanceData extends Component {
 
     onUpload = (event) => {
         const {files, id } = event.target;
+        const {activeEmployee} = this.props.employees;
         
         if(files && files.length) {
             const {quarterName, year}= this.props.quarters
               .filter(quarter=>quarter.id===id)[0].quarterDefinition; 
       
-        this.props.upload({ quarterName, year, file:files[0]});
+        this.props.upload({ quarterName, year, file:files[0]}, activeEmployee);
 
         event.target.value= '';
         event.preventDefault();
