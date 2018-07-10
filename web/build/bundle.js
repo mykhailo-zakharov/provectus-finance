@@ -66,7 +66,7 @@ var main =
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "62c5d4de3234e31018e4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fa93d9e548eafbc33865"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -2742,10 +2742,10 @@ var main =
 	        };
 	    },
 
-	    upload: function upload(formData) {
+	    upload: function upload(formData, employeeId) {
 	        return function (dispatch) {
 	            dispatch({ type: _common.types.IS_PRELOADER_TRUE });
-	            return (0, _financeData.upload)(formData).then(function (responce) {
+	            return (0, _financeData.upload)(formData, employeeId).then(function (responce) {
 	                window.location = responce.request.responseURL;
 	            }).catch(function (err) {
 	                console.error(err.message);
@@ -25021,12 +25021,11 @@ var main =
 	    return fetch(url, options);
 	}
 
-	var upload = exports.upload = function upload(formData) {
+	var upload = exports.upload = function upload(formData, employeeId) {
 	    var data = (0, _utils.getFormData)(formData);
-	    var userId = (0, _utils.getUserId)();
 	    return (0, _axios2.default)({
 	        method: 'post',
-	        url: _root2.default + 'import/convertTaxReport/' + userId,
+	        url: _root2.default + 'import/convertTaxReport/' + employeeId,
 	        data: data,
 	        config: { headers: { 'Content-Type': 'multipart/form-data' } }
 	    });
@@ -26206,6 +26205,7 @@ var main =
 	            var _event$target = event.target,
 	                files = _event$target.files,
 	                id = _event$target.id;
+	            var activeEmployee = _this.props.employees.activeEmployee;
 
 
 	            if (files && files.length) {
@@ -26215,7 +26215,7 @@ var main =
 	                    quarterName = _this$props$quarters$.quarterName,
 	                    year = _this$props$quarters$.year;
 
-	                _this.props.upload({ quarterName: quarterName, year: year, file: files[0] });
+	                _this.props.upload({ quarterName: quarterName, year: year, file: files[0] }, activeEmployee);
 
 	                event.target.value = '';
 	                event.preventDefault();
@@ -27493,18 +27493,7 @@ var main =
 	module.exports = exports['default'];
 
 /***/ }),
-/* 395 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var DEV_USER_ID = exports.DEV_USER_ID = "592802daaf21de318ed610c2";
-	var PROD_USER_ID = exports.PROD_USER_ID = "5b4372efaf21de33f5de9f47";
-
-/***/ }),
+/* 395 */,
 /* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28016,17 +28005,13 @@ var main =
 
 /***/ }),
 /* 403 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getUserId = exports.getFormData = undefined;
-
-	var _constants = __webpack_require__(395);
-
 	var getFormData = exports.getFormData = function getFormData(formData) {
 	  var file = formData.file,
 	      quarterName = formData.quarterName,
@@ -28038,10 +28023,6 @@ var main =
 	  data.append('year', year);
 
 	  return data;
-	};
-
-	var getUserId = exports.getUserId = function getUserId() {
-	  return window.location.hostname === 'localhost' ? _constants.PROD_USER_ID : _constants.DEV_USER_ID;
 	};
 
 /***/ }),

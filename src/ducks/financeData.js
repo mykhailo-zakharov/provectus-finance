@@ -160,9 +160,9 @@ export const actions = {
                 })
     },
 
-    upload:(formData)=>(dispatch)=>{  
+    upload:(formData, employeeId)=>(dispatch)=>{  
         dispatch({ type: typesCommon.IS_PRELOADER_TRUE});     
-        return upload(formData)
+        return upload(formData, employeeId)
         .then((responce)=>{            
            window.location=responce.request.responseURL;                    
         }).catch((err)=>{           
