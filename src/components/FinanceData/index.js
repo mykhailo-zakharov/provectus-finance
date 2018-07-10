@@ -59,6 +59,20 @@ class FinanceData extends Component {
         this.setState({ taxEdite: value});
     }
 
+    onUpload = (event) => {
+        const {files, id } = event.target;
+        
+        if(files && files.length) {
+            const {quarterName, year}= this.props.quarters
+              .filter(quarter=>quarter.id===id)[0].quarterDefinition; 
+      
+        this.props.upload({ quarterName, year, file:files[0]});
+
+        event.target.value= '';
+        event.preventDefault();
+    }
+};
+
 
     render() {
         if(!this.props.isTable){
@@ -120,6 +134,7 @@ class FinanceData extends Component {
                                              item={item}
                                              taxEdite={this.state.taxEdite}
                                              setTaxEdite={this.setTaxEdite}
+                                             onUpload={this.onUpload.bind(this)}
                                     />
                                 )
                             })

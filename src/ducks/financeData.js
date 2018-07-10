@@ -5,7 +5,8 @@ import {
     getKursController,
     addTaxController,
     delTaxController,
-    editeTaxController
+    editeTaxController,
+    upload
 } from '../api/financeData'
 
 export const types = {
@@ -157,7 +158,18 @@ export const actions = {
                 dispatch({ type: typesCommon.IS_PRELOADER_FALSE});
                 console.log(error)
                 })
-    }
+    },
 
+    upload:(formData)=>(dispatch)=>{  
+        dispatch({ type: typesCommon.IS_PRELOADER_TRUE});     
+        return upload(formData)
+        .then((responce)=>{            
+           window.location=responce.request.responseURL;                    
+        }).catch((err)=>{           
+            console.error(err.message);
+        }).finally(()=>{
+            dispatch({ type: typesCommon.IS_PRELOADER_FALSE})
+        });
+    },
 
 }
