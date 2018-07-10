@@ -1,4 +1,6 @@
 import URL from './root'
+import { getFormData, getUserId } from '../utils/utils';
+import axios from 'axios';
 //"quarter"
 
 export function getQuarterController(id) {
@@ -76,6 +78,16 @@ export function delTaxController(employeeId, quarterId, taxRecordId) {
     return fetch(url, options);
 }
 
+export const upload = (formData) => {    
+  const data = getFormData(formData); 
+  const userId = getUserId();       
+    return axios({
+        method: 'post',
+        url: `${URL}import/convertTaxReport/${userId}`,
+        data,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+    }); 
+}
 
 // /taxRecord
 //
