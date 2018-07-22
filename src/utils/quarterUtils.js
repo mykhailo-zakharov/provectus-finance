@@ -1,5 +1,5 @@
-import { uniq, map, filter } from 'lodash';
-import { EN_VALUE, STATUSES_COLOR_MAP, FILTER_ALL_VALUE } from '../constants/quarterConstants';
+import { uniq, map, filter, find } from 'lodash';
+import { EN_VALUE, STATUSES_COLOR_MAP, FILTER_ALL_VALUE, UNDEFINED } from '../constants/quarterConstants';
 
 export const getQuaterRecordData = (data) => {
   const {
@@ -13,7 +13,7 @@ export const getQuaterRecordData = (data) => {
 
   const equivalentUAH = usdRevenue * exchRateUsdUahNBUatReceivingDate;
   const taxationSum = equivalentUAH + uahRevenue;
-  const esv = taxationSum * EN_VALUE;
+  const ep = taxationSum * EN_VALUE;
 
   return {
     counterpartyName,
@@ -24,7 +24,7 @@ export const getQuaterRecordData = (data) => {
     paymentPurpose,
     equivalentUAH,
     taxationSum,
-    esv,
+    ep,
   };
 };
 
@@ -36,9 +36,13 @@ export const getFilterItems = (quarterRecordsData) => {
   return uniq(statusesArray);
 };
 
-export const getFilterdRecords = (allRecords, filterValue) => (filterValue === FILTER_ALL_VALUE
+export const getFilterdRecords = (allRecords, filterValue) =>
+  (filterValue === FILTER_ALL_VALUE
         ? allRecords
         : filter(allRecords, record => record.taxationStatus === filterValue));
+
+export const isAnyUndefinedRecord = taxRecords => find(taxRecords, record =>
+record.taxationStatus === UNDEFINED);
 
 export const getIdModeUpload = (id) => {
   const dataArray = id.split('_');

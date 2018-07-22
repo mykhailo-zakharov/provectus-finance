@@ -1,1 +1,1 @@
-export default URL = 'http://192.168.31.106:8080/'; //todo
+export default URL = 'http://54.202.244.88:8082/';

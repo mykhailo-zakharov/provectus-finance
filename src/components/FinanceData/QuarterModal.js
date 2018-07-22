@@ -34,8 +34,9 @@ import {
   UNDEFINED,
   FILTER_ALL_VALUE,
   UPLOADER_APPEND_MODE,
+  UNDEFINED_ERROR_MESSAGE,
 } from '../../constants/quarterConstants';
-import { getQuaterRecordData, getRowColor, getDateString } from '../../utils/quarterUtils';
+import { getQuaterRecordData, getRowColor, getDateString, isAnyUndefinedRecord } from '../../utils/quarterUtils';
 
 const style = {
   dialogStyle: {
@@ -84,6 +85,11 @@ const style = {
 
 /* eslint-disable react/prop-types */
 class QuarterModal extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onSaveClick = this.onSaveClick.bind(this);
+  }
 
   onRenderActions(status, id) {
     const approveButton = (<IconButton
@@ -195,12 +201,8 @@ class QuarterModal extends Component {
           paymentPurpose,
           equivalentUAH,
           taxationSum,
-          esv,
+          ep,
         } = getQuaterRecordData(row);
-
-          // if (index === 3 || index === 5) { // todo ysobol
-          //   row.taxationStatus = UNDEFINED;
-          // }
 
           return (<TableRow style={{ background: getRowColor(row.taxationStatus) }} key={index}>
             <TableRowColumn style={style.tableRow}>{counterpartyName}</TableRowColumn>
@@ -210,11 +212,11 @@ class QuarterModal extends Component {
             <TableRowColumn style={style.tableRow} >{usdRevenue}</TableRowColumn>
             <TableRowColumn style={style.tableRow}>{uahRevenue}</TableRowColumn>
             <TableRowColumn style={style.tableRow}>
-              {exchRateUsdUahNBUatReceivingDate.toFixed(2)}
+              {exchRateUsdUahNBUatReceivingDate.toFixed(4)}
             </TableRowColumn>
-            <TableRowColumn style={style.tableRow}>{equivalentUAH.toFixed(2)}</TableRowColumn>
-            <TableRowColumn style={style.tableRow}>{taxationSum.toFixed(2)}</TableRowColumn>
-            <TableRowColumn style={style.tableRow}>{esv.toFixed(2)}</TableRowColumn>
+            <TableRowColumn style={style.tableRow}>{equivalentUAH.toFixed(4)}</TableRowColumn>
+            <TableRowColumn style={style.tableRow}>{taxationSum.toFixed(4)}</TableRowColumn>
+            <TableRowColumn style={style.tableRow}>{ep.toFixed(4)}</TableRowColumn>
             <TableRowColumn style={style.tableRow}>{paymentPurpose}</TableRowColumn>
             <TableRowColumn style={style.tableRow}>
               {this.onRenderActions(row.taxationStatus, row.id)}
@@ -239,6 +241,12 @@ class QuarterModal extends Component {
   onSaveClick() {
     const { sendQuarterRecords, quarter, downloadFile, offPreloader, onModalClose } = this.props;
     const { taxRecords, quarterDefinition, id } = quarter;
+    const isUndefinedRecord = isAnyUndefinedRecord(taxRecords);
+
+    if (isUndefinedRecord) {
+      window.alert(UNDEFINED_ERROR_MESSAGE);
+      return;
+    }
 
     sendQuarterRecords({ taxRecords, quarterDefinition, id })
     .then((responce) => {
@@ -268,8 +276,7 @@ class QuarterModal extends Component {
           <FlatButton
             label="Save and Generate"
             primary
-            keyboardFocused
-            onClick={() => this.onSaveClick()}
+            onClick={this.onSaveClick}
           />,
           <FlatButton
             label="Cancel"

@@ -33,11 +33,9 @@ export default (state = initialState, action) => {
       });
     }
     case types.APPEND_RECORDS_LIST: {
-      debugger; // todo Юля пофикси
-
       const newtaxRecords = [...state.inittaxRecords, ...action.records];
       const inittaxRecords = cloneDeep(newtaxRecords);
-      const taxRecords = getFilterdRecords(state.filterValue, inittaxRecords);
+      const taxRecords = getFilterdRecords(inittaxRecords, state.filterValue);
 
       return Object.assign({}, state, {
         taxRecords,
@@ -65,9 +63,6 @@ export default (state = initialState, action) => {
         taxRecords: newtaxRecords,
         filterValue: action.recordFilter,
       });
-    }
-    case types.CHANGE_ALL_RECORD_STATUSES: { // todo
-      return { ...state };
     }
     default:
       return state;

@@ -66,7 +66,7 @@ var main =
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "184e5926cfcbfcb164b0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "424dc153e9943fd47017"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7671,6 +7671,8 @@ var main =
 	var UPLOADER_APPEND_MODE = exports.UPLOADER_APPEND_MODE = 'APPEND';
 	var UPLOADER_FETCH_MODE = exports.UPLOADER_FETCH_MODE = 'FETCH';
 
+	var UNDEFINED_ERROR_MESSAGE = exports.UNDEFINED_ERROR_MESSAGE = "У вас имеются записи с 'UNDEFINED' статусом, пожалуйста, установите статус 'APPROVED' или 'REJECTED' этим записям.";
+
 /***/ }),
 /* 118 */
 /***/ (function(module, exports) {
@@ -11663,10 +11665,6 @@ var main =
 	});
 	exports.actions = exports.initialState = exports.types = undefined;
 
-	var _extends2 = __webpack_require__(9);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
 	var _toConsumableArray2 = __webpack_require__(75);
 
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -11723,11 +11721,9 @@ var main =
 	      }
 	    case types.APPEND_RECORDS_LIST:
 	      {
-	        debugger; // todo Юля пофикси
-
 	        var newtaxRecords = [].concat((0, _toConsumableArray3.default)(state.inittaxRecords), (0, _toConsumableArray3.default)(action.records));
 	        var inittaxRecords = (0, _lodash.cloneDeep)(newtaxRecords);
-	        var _taxRecords = (0, _quarterUtils.getFilterdRecords)(state.filterValue, inittaxRecords);
+	        var _taxRecords = (0, _quarterUtils.getFilterdRecords)(inittaxRecords, state.filterValue);
 
 	        return (0, _assign2.default)({}, state, {
 	          taxRecords: _taxRecords,
@@ -11754,11 +11750,6 @@ var main =
 	          taxRecords: _newtaxRecords2,
 	          filterValue: action.recordFilter
 	        });
-	      }
-	    case types.CHANGE_ALL_RECORD_STATUSES:
-	      {
-	        // todo
-	        return (0, _extends3.default)({}, state);
 	      }
 	    default:
 	      return state;
@@ -11835,7 +11826,7 @@ var main =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getDateString = exports.changeRecordStatus = exports.getIdModeUpload = exports.getFilterdRecords = exports.getFilterItems = exports.getRowColor = exports.getQuaterRecordData = undefined;
+	exports.getDateString = exports.changeRecordStatus = exports.getIdModeUpload = exports.isAnyUndefinedRecord = exports.getFilterdRecords = exports.getFilterItems = exports.getRowColor = exports.getQuaterRecordData = undefined;
 
 	var _lodash = __webpack_require__(220);
 
@@ -11852,7 +11843,7 @@ var main =
 
 	  var equivalentUAH = usdRevenue * exchRateUsdUahNBUatReceivingDate;
 	  var taxationSum = equivalentUAH + uahRevenue;
-	  var esv = taxationSum * _quarterConstants.EN_VALUE;
+	  var ep = taxationSum * _quarterConstants.EN_VALUE;
 
 	  return {
 	    counterpartyName: counterpartyName,
@@ -11863,7 +11854,7 @@ var main =
 	    paymentPurpose: paymentPurpose,
 	    equivalentUAH: equivalentUAH,
 	    taxationSum: taxationSum,
-	    esv: esv
+	    ep: ep
 	  };
 	};
 
@@ -11882,6 +11873,12 @@ var main =
 	var getFilterdRecords = exports.getFilterdRecords = function getFilterdRecords(allRecords, filterValue) {
 	  return filterValue === _quarterConstants.FILTER_ALL_VALUE ? allRecords : (0, _lodash.filter)(allRecords, function (record) {
 	    return record.taxationStatus === filterValue;
+	  });
+	};
+
+	var isAnyUndefinedRecord = exports.isAnyUndefinedRecord = function isAnyUndefinedRecord(taxRecords) {
+	  return (0, _lodash.find)(taxRecords, function (record) {
+	    return record.taxationStatus === _quarterConstants.UNDEFINED;
 	  });
 	};
 
@@ -34758,8 +34755,7 @@ var main =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = URL = 'http://192.168.31.106:8080/'; //todo
-
+	exports.default = URL = 'http://54.202.244.88:8082/';
 	module.exports = exports['default'];
 
 /***/ }),
@@ -35070,8 +35066,7 @@ var main =
 	            year = data.year;
 
 
-	        upload({ quarterName: quarterName, year: year, files: files }, '5b10ccdb8ad59a0b05f2b72e') // todo ysobol
-	        .then(function (responce) {
+	        upload({ quarterName: quarterName, year: year, files: files }, activeEmployee).then(function (responce) {
 	          if (mode === _quarterConstants.UPLOADER_APPEND_MODE) {
 	            appendtaxRecords(responce.data.taxRecords);
 	          } else {
@@ -43816,7 +43811,7 @@ var main =
 	};
 
 	var downloadFile = exports.downloadFile = function downloadFile(location) {
-	  window.location = _root2.default + 'import/getFile/' + location;
+	  return window.location = _root2.default + 'import/getFile/' + location;
 	};
 
 /***/ }),
@@ -44553,9 +44548,13 @@ var main =
 	var QuarterModal = function (_Component) {
 	  (0, _inherits3.default)(QuarterModal, _Component);
 
-	  function QuarterModal() {
+	  function QuarterModal(props) {
 	    (0, _classCallCheck3.default)(this, QuarterModal);
-	    return (0, _possibleConstructorReturn3.default)(this, (QuarterModal.__proto__ || (0, _getPrototypeOf2.default)(QuarterModal)).apply(this, arguments));
+
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (QuarterModal.__proto__ || (0, _getPrototypeOf2.default)(QuarterModal)).call(this, props));
+
+	    _this.onSaveClick = _this.onSaveClick.bind(_this);
+	    return _this;
 	  }
 
 	  (0, _createClass3.default)(QuarterModal, [{
@@ -44714,11 +44713,7 @@ var main =
 	              paymentPurpose = _getQuaterRecordData.paymentPurpose,
 	              equivalentUAH = _getQuaterRecordData.equivalentUAH,
 	              taxationSum = _getQuaterRecordData.taxationSum,
-	              esv = _getQuaterRecordData.esv;
-
-	          // if (index === 3 || index === 5) { // todo ysobol
-	          //   row.taxationStatus = UNDEFINED;
-	          // }
+	              ep = _getQuaterRecordData.ep;
 
 	          return _react2.default.createElement(
 	            _Table.TableRow,
@@ -44746,22 +44741,22 @@ var main =
 	            _react2.default.createElement(
 	              _Table.TableRowColumn,
 	              { style: style.tableRow },
-	              exchRateUsdUahNBUatReceivingDate.toFixed(2)
+	              exchRateUsdUahNBUatReceivingDate.toFixed(4)
 	            ),
 	            _react2.default.createElement(
 	              _Table.TableRowColumn,
 	              { style: style.tableRow },
-	              equivalentUAH.toFixed(2)
+	              equivalentUAH.toFixed(4)
 	            ),
 	            _react2.default.createElement(
 	              _Table.TableRowColumn,
 	              { style: style.tableRow },
-	              taxationSum.toFixed(2)
+	              taxationSum.toFixed(4)
 	            ),
 	            _react2.default.createElement(
 	              _Table.TableRowColumn,
 	              { style: style.tableRow },
-	              esv.toFixed(2)
+	              ep.toFixed(4)
 	            ),
 	            _react2.default.createElement(
 	              _Table.TableRowColumn,
@@ -44803,6 +44798,12 @@ var main =
 	          quarterDefinition = quarter.quarterDefinition,
 	          id = quarter.id;
 
+	      var isUndefinedRecord = (0, _quarterUtils.isAnyUndefinedRecord)(taxRecords);
+
+	      if (isUndefinedRecord) {
+	        window.alert(_quarterConstants.UNDEFINED_ERROR_MESSAGE);
+	        return;
+	      }
 
 	      sendQuarterRecords({ taxRecords: taxRecords, quarterDefinition: quarterDefinition, id: id }).then(function (responce) {
 	        onModalClose();
@@ -44816,8 +44817,6 @@ var main =
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this5 = this;
-
 	      var _props2 = this.props,
 	          onModalClose = _props2.onModalClose,
 	          data = _props2.data;
@@ -44838,10 +44837,7 @@ var main =
 	          actions: [_react2.default.createElement(_FlatButton2.default, {
 	            label: 'Save and Generate',
 	            primary: true,
-	            keyboardFocused: true,
-	            onClick: function onClick() {
-	              return _this5.onSaveClick();
-	            }
+	            onClick: this.onSaveClick
 	          }), _react2.default.createElement(_FlatButton2.default, {
 	            label: 'Cancel',
 	            primary: true,

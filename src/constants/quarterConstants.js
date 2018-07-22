@@ -20,3 +20,5 @@ export const FILTER_ALL_VALUE = 'ALL';
 export const UPLOADER_APPEND_MODE = 'APPEND';
 export const UPLOADER_FETCH_MODE = 'FETCH';
 
+export const UNDEFINED_ERROR_MESSAGE = "У вас имеются записи с 'UNDEFINED' статусом, пожалуйста, установите статус 'APPROVED' или 'REJECTED' этим записям.";
+
