@@ -66,7 +66,7 @@ var main =
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "424dc153e9943fd47017"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "54036fd8f2ad97dd63a7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -43811,7 +43811,7 @@ var main =
 	};
 
 	var downloadFile = exports.downloadFile = function downloadFile(location) {
-	  return window.location = _root2.default + 'import/getFile/' + location;
+	  window.location = _root2.default + 'import/getFile/' + location;
 	};
 
 /***/ }),
@@ -44794,18 +44794,18 @@ var main =
 	          downloadFile = _props.downloadFile,
 	          offPreloader = _props.offPreloader,
 	          onModalClose = _props.onModalClose;
-	      var taxRecords = quarter.taxRecords,
-	          quarterDefinition = quarter.quarterDefinition,
-	          id = quarter.id;
+	      var quarterDefinition = quarter.quarterDefinition,
+	          id = quarter.id,
+	          inittaxRecords = quarter.inittaxRecords;
 
-	      var isUndefinedRecord = (0, _quarterUtils.isAnyUndefinedRecord)(taxRecords);
+	      var isUndefinedRecord = (0, _quarterUtils.isAnyUndefinedRecord)(inittaxRecords);
 
 	      if (isUndefinedRecord) {
 	        window.alert(_quarterConstants.UNDEFINED_ERROR_MESSAGE);
 	        return;
 	      }
 
-	      sendQuarterRecords({ taxRecords: taxRecords, quarterDefinition: quarterDefinition, id: id }).then(function (responce) {
+	      sendQuarterRecords({ taxRecords: inittaxRecords, quarterDefinition: quarterDefinition, id: id }).then(function (responce) {
 	        onModalClose();
 	        downloadFile(responce.data.location);
 	      }).catch(function (err) {

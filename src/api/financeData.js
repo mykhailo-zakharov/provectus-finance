@@ -85,8 +85,9 @@ export const upload = (formData, employeeId) => {
   });
 };
 
-export const sendQuarterRecords = quarterObj =>
-  axios.post(`${URL}import/generateTaxReport`,
+export const sendQuarterRecords = quarterObj => axios.post(`${URL}import/generateTaxReport`,
     JSON.stringify(quarterObj), { headers: { 'Content-Type': 'application/json' } });
 
-export const downloadFile = (location) => window.location = `${URL}import/getFile/${location}`;
+export const downloadFile = (location) => {
+  window.location = `${URL}import/getFile/${location}`;
+};

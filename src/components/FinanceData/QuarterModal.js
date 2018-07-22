@@ -240,15 +240,15 @@ class QuarterModal extends Component {
 
   onSaveClick() {
     const { sendQuarterRecords, quarter, downloadFile, offPreloader, onModalClose } = this.props;
-    const { taxRecords, quarterDefinition, id } = quarter;
-    const isUndefinedRecord = isAnyUndefinedRecord(taxRecords);
+    const { quarterDefinition, id, inittaxRecords } = quarter;
+    const isUndefinedRecord = isAnyUndefinedRecord(inittaxRecords);
 
     if (isUndefinedRecord) {
       window.alert(UNDEFINED_ERROR_MESSAGE);
       return;
     }
 
-    sendQuarterRecords({ taxRecords, quarterDefinition, id })
+    sendQuarterRecords({ taxRecords: inittaxRecords, quarterDefinition, id })
     .then((responce) => {
       onModalClose();
       downloadFile(responce.data.location);
