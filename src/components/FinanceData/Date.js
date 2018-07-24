@@ -12,19 +12,6 @@ class Date extends Component {
       isValidDateInput: true,
     };
 
-
-    const n = A.length;
-    for (let i = 0; i <= n; i++) {
-      for (let j = 0; j < n - 1 - i; j++) {
-        if (A[j + 1] < A[j]) {
-          const t = A[j + 1];
-          A[j + 1] = A[j];
-          A[j] = t;
-        }
-      }
-    }
-
-
     this.handleSetDate = this.handleSetDate.bind(this);
     this.handleSetDateHand = this.handleSetDateHand.bind(this);
     this.getKurs = this.getKurs.bind(this);
